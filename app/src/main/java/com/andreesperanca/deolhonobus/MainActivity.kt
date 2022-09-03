@@ -2,10 +2,27 @@ package com.andreesperanca.deolhonobus
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.andreesperanca.deolhonobus.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+
+        synchronizeNavigation()
+
+    }
+
+    private fun synchronizeNavigation() {
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) as NavHostFragment
+        navHostFragment.let { navHost ->
+            binding.mainMenu.setupWithNavController(navHost.navController)
+        }
     }
 }
