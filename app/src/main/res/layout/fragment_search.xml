@@ -1,8 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
-</FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeTopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_layout_background"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="@string/searchFor"
+            android:textColor="@color/gray_text"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_search_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_title"
+            android:checkedButton="@id/lines"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/lines"
+                style="@style/Theme.DeOlhoNoBus.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/seach_type_background_selector"
+                android:drawableTop="@drawable/ic_bus"
+                android:padding="20dp"
+                android:text="@string/lines"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/bus_stop"
+                style="@style/Theme.DeOlhoNoBus.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/seach_type_background_selector"
+                android:drawableTop="@drawable/bus_stop"
+                android:padding="20dp"
+                android:text="@string/stop"
+                android:textSize="18sp" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rg_search_bus_stop_selected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rg_search_type"
+            android:checkedButton="@id/rb_line_name"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_line_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/seach_bus_stop_background_selector"
+                android:button="@android:color/transparent"
+                android:padding="5dp"
+                android:text="@string/numberLine" />
+
+            <RadioButton
+                android:id="@+id/rb_bus_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/seach_bus_stop_background_selector"
+                android:button="@android:color/transparent"
+                android:padding="5dp"
+                android:text="@string/stop" />
+
+            <RadioButton
+                android:id="@+id/rb_hall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/seach_bus_stop_background_selector"
+                android:button="@android:color/transparent"
+                android:padding="5dp"
+                android:text="@string/numberLine" />
+
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rg_search_line_selected"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rg_search_type"
+            android:checkedButton="@id/rb_denominationOrNumber"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_denominationOrNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/seach_bus_stop_background_selector"
+                android:button="@android:color/transparent"
+                android:padding="5dp"
+                android:text="@string/lineNameOrNumber" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/searchBar"
+            style="@style/Theme.DeOlhoNoBus.EditTextForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rg_search_bus_stop_selected"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/valueForSearch" />
+
+        <Button
+            style="@style/Theme.DeOlhoNoBus.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchBar"
+            android:gravity="center"
+            android:text="@string/search" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/relativeTopLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/dark_blue"
+            android:progressTint="@color/dark_blue" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.andreesperanca.deolhonobus
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,5 +19,18 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = binding.root
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding.rgSearchType.setOnCheckedChangeListener { group, checkedId ->
+            if (binding.busStop.id == checkedId) {
+                binding.rgSearchBusStopSelected.visibility = View.VISIBLE
+                binding.rgSearchLineSelected.visibility = View.INVISIBLE
+            } else {
+                binding.rgSearchBusStopSelected.visibility = View.INVISIBLE
+                binding.rgSearchLineSelected.visibility = View.VISIBLE
+            }
+        }
+
+    }
 }

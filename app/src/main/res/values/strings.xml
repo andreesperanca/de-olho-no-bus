@@ -5,4 +5,11 @@
     <string name="home">Início</string>
     <string name="search">Buscar</string>
     <string name="map">Mapa</string>
+    <string name="searchFor">Buscar por:</string>
+    <string name="lines">Linhas</string>
+    <string name="stop">Paradas</string>
+    <string name="valueForSearch">Digite o valor da busca aqui</string>
+    <string name="numberLine">Número de linha</string>
+    <string name="hall">Corredor</string>
+    <string name="lineNameOrNumber">"Nome de linha ou número "</string>
 </resources>

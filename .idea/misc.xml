@@ -3,7 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable-v24/top_layout_background.xml" value="0.115" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/button_background.xml" value="0.115" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/edit_text_background.xml" value="0.115" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/seach_bus_stop_background_selector.xml" value="0.116" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/seach_type_background_selector.xml" value="0.1285" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/search_bus_stop_checked_background.xml" value="0.1285" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/search_bus_stop_unchecked_background.xml" value="0.1285" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/search_type_checked_background.xml" value="0.1" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/drawable/search_type_unchecked_background.xml" value="0.115" />
         <entry key="..\:/DeOlhoNoBus/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/layout/fragment_gmaps.xml" value="0.21614583333333334" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/layout/fragment_home.xml" value="0.21614583333333334" />
+        <entry key="..\:/DeOlhoNoBus/app/src/main/res/layout/fragment_search.xml" value="0.22" />
         <entry key="..\:/DeOlhoNoBus/app/src/main/res/menu/main_menu.xml" value="0.161328125" />
       </map>
     </option>
