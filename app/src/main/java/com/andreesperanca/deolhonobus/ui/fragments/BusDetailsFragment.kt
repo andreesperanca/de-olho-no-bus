@@ -1,4 +1,4 @@
-package com.andreesperanca.deolhonobus
+package com.andreesperanca.deolhonobus.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
-import com.andreesperanca.deolhonobus.adapters.SearchAdapter
 import com.andreesperanca.deolhonobus.databinding.FragmentBusDetailsBinding
 
 class BusDetailsFragment : Fragment() {

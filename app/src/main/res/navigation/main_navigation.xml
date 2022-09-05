@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_gmaps" />
     <fragment
         android:id="@+id/busDetailsFragment"
-        android:name="com.andreesperanca.deolhonobus.BusDetailsFragment"
+        android:name="com.andreesperanca.deolhonobus.ui.fragments.BusDetailsFragment"
         android:label="fragment_bus_details"
         tools:layout="@layout/fragment_bus_details" >
         <argument

@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
-import com.andreesperanca.deolhonobus.models.BusRoute
+import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 
-@Database(entities = [BusStop::class, BusRoute::class], version = 1, exportSchema = false)
+@Database(entities = [BusStop::class, BusLine::class], version = 1, exportSchema = false)
 abstract class FavoriteRoomDataBase : RoomDatabase() {
 
     abstract fun favoriteDao() : FavoriteDao
