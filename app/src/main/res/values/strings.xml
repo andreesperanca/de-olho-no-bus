@@ -12,4 +12,10 @@
     <string name="numberLine">Número de linha</string>
     <string name="hall">Corredor</string>
     <string name="lineNameOrNumber">"Nome de linha ou número "</string>
+    <string name="nameLineStop">Nome de parada</string>
+    <string name="idBus">Número da linha:  %1$s</string>
+    <string name="origin">Origem:  %1$s</string>
+    <string name="destination">Destino:  %1$s</string>
+    <string name="details">Detalhes</string>
+
 </resources>
