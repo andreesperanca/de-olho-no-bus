@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.R
+import com.andreesperanca.deolhonobus.SearchFragmentDirections
 import com.andreesperanca.deolhonobus.adapters.SearchAdapter.*
 import com.andreesperanca.deolhonobus.databinding.RvBusItemBinding
 import com.andreesperanca.deolhonobus.mockdata.MockData
@@ -40,7 +42,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
             binding.tvNumberLine.text = binding.root.context.getString(R.string.idBus,busRoute.id.toString())
 
             binding.tvDetails.setOnClickListener {
-                Toast.makeText(binding.root.context, "Não implementado", Toast.LENGTH_LONG).show()
+                val action = SearchFragmentDirections.actionSearchFragmentToBusDetailsFragment(busRoute)
+                it.findNavController().navigate(action)
+
             }
         }
 
