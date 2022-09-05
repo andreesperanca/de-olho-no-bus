@@ -19,8 +19,7 @@
     <string name="details">Detalhes</string>
     <string name="operationType">Operação circular: %1$s</string>
     <string name="operationMode">Modo de operação: %1$s</string>
-    <string name="markInMap">Marcar no mapa</string>
-    <string name="localize">Ir para o mapa</string>
+    <string name="localize">Acompanhar</string>
     <string name="busStopName">Nome: %1$s</string>
     <string name="address">"Endereço: %1$s"</string>
 
