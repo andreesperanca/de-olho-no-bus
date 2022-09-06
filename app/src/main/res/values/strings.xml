@@ -22,5 +22,8 @@
     <string name="localize">Acompanhar</string>
     <string name="busStopName">Nome: %1$s</string>
     <string name="address">"Endereço: %1$s"</string>
+    <string name="idCode">Código identificador: %1$s</string>
+    <string name="busLine">Linhas que passam aqui</string>
+    <string name="lineStops">Paradas da linha</string>
 
 </resources>

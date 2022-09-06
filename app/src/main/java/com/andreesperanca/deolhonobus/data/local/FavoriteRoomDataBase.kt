@@ -8,24 +8,32 @@ import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
 import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 
-@Database(entities = [BusStop::class, BusLine::class], version = 1, exportSchema = false)
+@Database(
+    entities = [BusLine::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class FavoriteRoomDataBase : RoomDatabase() {
-
-    abstract fun favoriteDao() : FavoriteDao
+    abstract val favoriteDao: FavoriteDao
 
     companion object {
+
         @Volatile
         private var INSTANCE: FavoriteRoomDataBase? = null
 
-        fun getDatabase(context: Context): FavoriteRoomDataBase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    FavoriteRoomDataBase::class.java,
-                    "marketList_database"
-                ).build()
-                INSTANCE = instance
-                instance
+        fun getInstance(context: Context): FavoriteRoomDataBase {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        FavoriteRoomDataBase::class.java,
+                        "favorite-db"
+                    ).fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
+                }
+                return instance
             }
         }
     }

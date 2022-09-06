@@ -9,11 +9,11 @@
     tools:context=".ui.fragments.BusDetailsFragment">
 
     <RelativeLayout
-        android:padding="8dp"
-        android:background="@drawable/top_layout_background"
         android:id="@+id/busInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/top_layout_background"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +22,7 @@
             android:id="@+id/iv_busStopImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/img_bus_128"
+            android:src="@drawable/img_bus_stop_128"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,40 +37,26 @@
 
 
             <TextView
-                android:id="@+id/tv_numberLine"
+                android:id="@+id/tv_busStopName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/idBus"
+                android:text="@string/busStopName"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_operationType"
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/operationType"
-                android:textSize="15sp" />
+                android:text="@string/address"
+                android:textSize="15sp"
+                tools:text="Endereço:" />
 
             <TextView
-                android:id="@+id/tv_operationMode"
+                android:id="@+id/tv_idCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/operationMode"
+                android:text="@string/idCode"
                 android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_origin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/origin"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_destination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/destination"
-                android:textSize="15sp" />
-
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -78,85 +64,83 @@
     </RelativeLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginTop="5dp"
         android:id="@+id/actionsLayout"
-        app:layout_constraintTop_toBottomOf="@id/busInfoLayout"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/busInfoLayout">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:padding="8dp"
-            android:background="@drawable/top_layout_background"
-            android:layout_marginHorizontal="15dp"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/top_layout_background"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <ImageButton
-                android:id="@+id/btn_favorite"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_not_favorite"
+                android:id="@+id/btn_favoriteBusStop"
                 android:layout_width="96dp"
-                android:layout_height="96dp"/>
+                android:layout_height="96dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_not_favorite" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Favoritar"/>
+                android:text="Favoritar"
+                android:textAlignment="center" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/top_layout_background"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:padding="8dp">
 
             <ImageButton
-                android:id="@+id/btn_localize"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_map_location"
+                android:id="@+id/btn_localizeBusStop"
                 android:layout_width="96dp"
-                android:layout_height="96dp"/>
+                android:layout_height="96dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_map_location" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/localize"/>
+                android:text="@string/localize"
+                android:textAlignment="center" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/actionsLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+        app:layout_constraintTop_toBottomOf="@id/actionsLayout">
 
         <TextView
-            android:textColor="@color/gray_text"
-            android:layout_marginStart="5dp"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:text="@string/lineStops"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/busLine"
+            android:textColor="@color/gray_text"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_busStop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_busStop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

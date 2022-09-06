@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/iv_busImage"
+        android:id="@+id/iv_busStopImage"
         android:src="@drawable/img_bus_128"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        app:layout_constraintStart_toEndOf="@id/iv_busImage"
+        app:layout_constraintStart_toEndOf="@id/iv_busStopImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

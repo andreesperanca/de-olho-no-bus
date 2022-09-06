@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.andreesperanca.deolhonobus.BusStopDetailsFragmentDirections
 import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.SearchFragmentDirections
-import com.andreesperanca.deolhonobus.adapters.SearchAdapter.*
+import com.andreesperanca.deolhonobus.adapters.SearchAdapter.SearchViewHolder
+import com.andreesperanca.deolhonobus.databinding.FragmentSearchBinding
 import com.andreesperanca.deolhonobus.databinding.RvBusItemBinding
 import com.andreesperanca.deolhonobus.mockdata.MockData
 import com.andreesperanca.deolhonobus.models.BusLine
@@ -40,11 +42,14 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
             binding.tvNumberLine.text = binding.root.context.getString(R.string.idBus,busLine.id.toString())
 
             binding.tvDetails.setOnClickListener {
-                val action = SearchFragmentDirections.actionSearchFragmentToBusDetailsFragment(busLine)
-                it.findNavController().navigate(action)
-
+                if (it.findNavController().currentDestination?.id == R.id.searchFragment) {
+                    it.findNavController()
+                        .navigate(SearchFragmentDirections
+                            .actionSearchFragmentToBusDetailsFragment(busLine))
+                } else {
+                    it.findNavController().navigate(BusStopDetailsFragmentDirections.actionBusStopDetailsFragmentToBusDetailsFragment(busLine))
+                }
             }
         }
-
     }
 }

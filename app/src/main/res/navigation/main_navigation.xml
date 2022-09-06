@@ -33,7 +33,28 @@
         tools:layout="@layout/fragment_bus_details" >
         <argument
             android:name="bus"
-            app:argType="com.andreesperanca.deolhonobus.models.BusRoute" />
+            app:argType="com.andreesperanca.deolhonobus.models.BusLine" />
+        <action
+            android:id="@+id/action_busDetailsFragment_to_gmapsFragment"
+            app:destination="@id/gmapsFragment" />
+        <action
+            android:id="@+id/action_busDetailsFragment_to_busStopDetailsFragment"
+            app:destination="@id/busStopDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/busStopDetailsFragment"
+        android:name="com.andreesperanca.deolhonobus.BusStopDetailsFragment"
+        android:label="fragment_bus_stop_details"
+        tools:layout="@layout/fragment_bus_stop_details" >
+        <action
+            android:id="@+id/action_busStopDetailsFragment_to_gmapsFragment"
+            app:destination="@id/gmapsFragment" />
+        <argument
+            android:name="busStop"
+            app:argType="com.andreesperanca.deolhonobus.models.BusStop" />
+        <action
+            android:id="@+id/action_busStopDetailsFragment_to_busDetailsFragment"
+            app:destination="@id/busDetailsFragment" />
     </fragment>
 
 

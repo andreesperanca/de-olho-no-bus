@@ -35,11 +35,14 @@ class SearchFragment : Fragment() {
                 binding.rgSearchLineSelected.visibility = View.VISIBLE
             }
         }
+        configureAdapter()
 
+    }
+
+    private fun configureAdapter() {
         val divisor = DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL)
         binding.rvSearchFragment.adapter = SearchAdapter()
         binding.rvSearchFragment.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
         binding.rvSearchFragment.addItemDecoration(divisor)
-
     }
 }
