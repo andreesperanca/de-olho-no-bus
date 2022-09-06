@@ -12,9 +12,7 @@ import com.andreesperanca.deolhonobus.mockdata.MockData
 import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.ui.fragments.SearchFragmentDirections
 
-class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
-
-    val mockList = MockData().listLines
+class SearchAdapter(private val list: List<BusLine>) : RecyclerView.Adapter<SearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,10 +21,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(mockList[position])
+        holder.bind(list[position])
     }
 
-    override fun getItemCount(): Int = mockList.size
+    override fun getItemCount(): Int = list.size
 
     inner class SearchViewHolder(private val binding: RvBusItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

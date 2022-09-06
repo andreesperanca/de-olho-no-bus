@@ -8,7 +8,7 @@ import com.andreesperanca.deolhonobus.models.Relations
 class MockData {
     public val listLines = mutableListOf<BusLine>(
         BusLine(
-            busLineNumber = 1,
+            idCode = 1,
             CircularRoute = true,
             firstLabel = "Cidade Alegria",
             secondLabel = "Campos Eliseos",
@@ -16,22 +16,13 @@ class MockData {
             mainTerminal = "Cidade Alegria",
             secondaryTerminal = "Campos Eliseos"),
         BusLine(
-            busLineNumber = 1,
+            idCode = 1,
             CircularRoute = true,
             firstLabel = "Cidade Alegria",
             secondLabel = "Campos Eliseos",
             direction = 1,
             mainTerminal = "Cidade Alegria",
-            secondaryTerminal = "Campos Eliseos"),
-        BusLine(
-            busLineNumber = 1,
-            CircularRoute = true,
-            firstLabel = "Cidade Alegria",
-            secondLabel = "Campos Eliseos",
-            direction = 1,
-            mainTerminal = "Cidade Alegria",
-            secondaryTerminal = "Campos Eliseos"),
-    )
+            secondaryTerminal = "Campos Eliseos"))
 
     public val listBusStop = listOf<BusStop>(
         BusStop(1,

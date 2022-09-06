@@ -81,7 +81,7 @@ class BusDetailsFragment : Fragment() {
         binding.rvBusStop.addItemDecoration(divisor)
     }
     private fun putBusInfo() {
-        binding.tvNumberLine.text = getString(R.string.idBus, args.bus.busLineNumber.toString())
+        binding.tvNumberLine.text = getString(R.string.idBus, args.bus.idCode.toString())
         if (args.bus.CircularRoute) {
             binding.tvOperationType.text = getString(R.string.operationType, "Sim")
         } else {

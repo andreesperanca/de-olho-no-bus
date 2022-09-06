@@ -1,5 +1,7 @@
 package com.andreesperanca.deolhonobus.data.remote
 
+import com.andreesperanca.deolhonobus.util.BASE_URL
+import com.andreesperanca.deolhonobus.util.PROXY_URL_AIKO
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +19,7 @@ class AppRetrofit {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("BASE_URL")
+            .baseUrl(PROXY_URL_AIKO)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

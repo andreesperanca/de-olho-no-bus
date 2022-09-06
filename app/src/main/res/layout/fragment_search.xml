@@ -162,6 +162,8 @@
             android:layout_height="match_parent" />
 
         <ProgressBar
+            android:id="@+id/progressBar"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

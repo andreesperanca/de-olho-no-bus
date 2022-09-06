@@ -27,10 +27,7 @@ class BusStopDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        configureRecyclerView()
         inputInfoBusStop()
-
     }
 
     private fun inputInfoBusStop() {
@@ -39,8 +36,8 @@ class BusStopDetailsFragment : Fragment() {
         binding.tvIdCode.text = getString(R.string.idCode, args.busStop.id.toString())
     }
 
-    private fun configureRecyclerView() {
-        binding.rvBusStop.adapter = SearchAdapter()
-        binding.rvBusStop.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
-    }
+//    private fun configureRecyclerView() {
+//        binding.rvBusStop.adapter = SearchAdapter()
+//        binding.rvBusStop.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
+//    }
 }
