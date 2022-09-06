@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_searchFragment_to_busDetailsFragment"
             app:destination="@id/busDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_busStopDetailsFragment"
+            app:destination="@id/busStopDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -44,7 +47,7 @@
 
     <fragment
         android:id="@+id/busStopDetailsFragment"
-        android:name="com.andreesperanca.deolhonobus.BusStopDetailsFragment"
+        android:name="com.andreesperanca.deolhonobus.ui.fragments.BusStopDetailsFragment"
         android:label="fragment_bus_stop_details"
         tools:layout="@layout/fragment_bus_stop_details" >
         <action

@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class BusStop(
+data class BusStopForecastModel (
     @SerializedName("cp")
     val id: Int,
     @SerializedName("np")
     val name: String,
-    @SerializedName("ed")
-    val address: String,
     @SerializedName("py")
     val latitude: Double,
     @SerializedName("px")
-    val longitude: Double
-) : Parcelable
+    val longitude: Double,
+    @SerializedName("l")
+    val listOfLinesFound: List<ListOfLocalizedLines>
+): Parcelable

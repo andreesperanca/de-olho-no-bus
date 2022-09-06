@@ -1,29 +1,38 @@
 package com.andreesperanca.deolhonobus.ui.fragments
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
 import com.andreesperanca.deolhonobus.adapters.SearchAdapter
+import com.andreesperanca.deolhonobus.databinding.FragmentHomeBinding
 import com.andreesperanca.deolhonobus.databinding.FragmentSearchBinding
+import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.ui.viewmodels.SearchViewModel
 import com.andreesperanca.deolhonobus.util.Resource
-import com.andreesperanca.deolhonobus.util.hideKeyBoard
 import com.andreesperanca.deolhonobus.util.hideKeyboard
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
 
     private val binding by lazy {
         FragmentSearchBinding.inflate(layoutInflater)
+    }
+    private val adapter by lazy {
+        SearchAdapter()
+    }
+
+    private val adapterBusStop by lazy {
+        BusStopAdapter()
     }
 
     private val viewModel: SearchViewModel by viewModel()
@@ -36,25 +45,76 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.seachResult.observe(viewLifecycleOwner) {
-            when(it) {
+        viewModel.fetchBusStopWithBusLineCode.observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    val divisor = DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL)
-                    binding.rvSearchFragment.adapter = SearchAdapter(it.data!!)
-                    binding.rvSearchFragment.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
-                    binding.rvSearchFragment.addItemDecoration(divisor)
+                    configureBusStopAdapter(adapterBusStop)
+                    adapterBusStop.updateList(it.data)
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+        }
+
+        viewModel.fetchBusStopWithHallCode.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    configureBusStopAdapter(adapterBusStop)
+                    adapterBusStop.updateList(it.data)
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+        }
+
+        viewModel.fetchBusStopWithNameOrAddress.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    configureBusStopAdapter(adapterBusStop)
+                    adapterBusStop.updateList(it.data)
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+        }
+
+        viewModel.seachResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    configureBusLineAdapter(adapter)
+                    adapter.updateList(it.data)
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }
 
         viewModel.authResult.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
@@ -82,50 +142,33 @@ class SearchFragment : Fragment() {
 
         binding.btnSearch.setOnClickListener {
             if (binding.lines.isChecked) {
-                //FAZER BUSCA POR LINHA E NÚMERO
                 viewModel.getAuthInApi()
                 viewModel.getBusLines(binding.searchBar.text.toString())
-                Log.i("teste", "FAZER REQUISIÇÃO DE LINHA POR NÚMERO E LINHA")
             } else {
                 when (true) {
-                    binding.rbLineName.isChecked -> kotlin.run {
-                        //FAZER REQUISIÇÃO DE PARADA POR NÚMERO DE LINHA
-                        Log.i("teste", "FAZER REQUISIÇÃO DE PARADA POR NÚMERO DE LINHA")
-                    }
-                    binding.rbBusStop.isChecked -> kotlin.run {
-                        //FAZER REQUISIÇÃO POR NOME DE PARADA
-                        Log.i("teste", "FAZER REQUISIÇÃO POR NOME DE PARADA")
-                    }
-                    binding.rbHall.isChecked -> kotlin.run {
-                        Log.i(
-                            "teste",
-                            "FAZER REQUISIÇÃO POR CÓDIGO DE CORREDOR"
-                        )
-                    }
-                    else -> kotlin.run {
-                        //FAZER REQUISIÇÃO POR CÓDIGO DE CORREDOR
-                        Log.i("teste", "Nenhuma opção selecionada")
-                    }
+                    binding.rbLineName.isChecked -> run { viewModel.getBusStopWithBusLineCode(binding.searchBar.text.toString()) }
+                    binding.rbBusStop.isChecked -> run { viewModel.getBusStopWithAddressOrName(binding.searchBar.text.toString()) }
+                    else -> run { viewModel.getBusStopWithHallCode(binding.searchBar.text.toString()) }
                 }
             }
             hideKeyboard(binding.root)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getAuthInApi()
+    private fun configureBusLineAdapter(adapter: SearchAdapter) {
+        val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        binding.rvSearchFragment.adapter = adapter
+        binding.rvSearchFragment.layoutManager =
+            LinearLayoutManager(requireContext(), VERTICAL, false)
+        binding.rvSearchFragment.addItemDecoration(divisor)
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun configureBusStopAdapter(adapter: BusStopAdapter) {
+        val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        binding.rvSearchFragment.adapter = adapter
+        binding.rvSearchFragment.layoutManager =
+            LinearLayoutManager(requireContext(), VERTICAL, false)
+        binding.rvSearchFragment.addItemDecoration(divisor)
     }
 
-//    private fun configureAdapter() {
-//        val divisor = DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL)
-//        binding.rvSearchFragment.adapter = SearchAdapter()
-//        binding.rvSearchFragment.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
-//        binding.rvSearchFragment.addItemDecoration(divisor)
-//    }
 }

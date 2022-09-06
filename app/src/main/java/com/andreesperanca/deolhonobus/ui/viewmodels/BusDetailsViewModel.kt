@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andreesperanca.deolhonobus.mockdata.MockData
 import com.andreesperanca.deolhonobus.models.BusLine
+import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
+import com.andreesperanca.deolhonobus.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewModel() {
@@ -15,8 +18,8 @@ class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewMo
     private var _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
 
-    val getBusLine: LiveData<List<BusLine>>
-        get() = repository.getFavoritesBusLine
+    private var _searchBusStop = MutableLiveData<Resource<List<BusStop>>>()
+    val searchBusStop: LiveData<Resource<List<BusStop>>> = _searchBusStop
 
     val listTest = MockData().listLines
 
@@ -36,5 +39,11 @@ class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewMo
         }
     }
 
-
+    fun getBusStopWithBusLineCode(busLineCode: String) {
+        _searchBusStop.postValue(Resource.Loading())
+        viewModelScope.launch (Dispatchers.Main) {
+            val searchResult = repository.getBusStopWithBusLineCode(busLineCode)
+            _searchBusStop.postValue(searchResult)
+        }
+    }
 }

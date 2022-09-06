@@ -1,16 +1,21 @@
 package com.andreesperanca.deolhonobus.repositories
 
-import androidx.lifecycle.LiveData
-import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
-import com.andreesperanca.deolhonobus.models.BusLine
+import com.andreesperanca.deolhonobus.data.remote.RetrofitService
+import com.andreesperanca.deolhonobus.models.BusStop
+import com.andreesperanca.deolhonobus.util.Resource
+import com.andreesperanca.deolhonobus.util.apiCall
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.await
 
-class BusDetailsRepository(
-    private val favoriteDao : FavoriteDao) {
+class BusDetailsRepository(private val service: RetrofitService) {
 
-    val getFavoritesBusLine: LiveData<List<BusLine>> = favoriteDao.getBusLine()
-
-    suspend fun favoriteBusLine(busLine: BusLine) { favoriteDao.insert(busLine) }
-
-    suspend fun deleteBusLine(busLine: BusLine) {favoriteDao.deleteBusLine(busLine)}
-
+    suspend fun getBusStopWithBusLineCode(codigoLinha: String): Resource<List<BusStop>> {
+        return withContext(Dispatchers.IO) {
+            apiCall {
+                val fetchResult = service.getBusStopWithBusLineCode(codigoLinha).await()
+                Resource.Success(fetchResult)
+            }
+        }
+    }
 }

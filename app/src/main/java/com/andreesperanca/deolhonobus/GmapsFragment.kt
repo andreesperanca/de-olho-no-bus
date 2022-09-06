@@ -30,52 +30,53 @@ class GmapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
-
-        mapFragment.getMapAsync { googleMap ->
-            addMarkers(googleMap)
-
-            googleMap.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style)
-            )
-
-//            googleMap.setInfoWindowAdapter(MarkerInfoAdapter(requireContext()))
-            googleMap.setOnMapLoadedCallback {
-                val bounds = LatLngBounds.Builder()
-                MockData().listPosition.forEach {
-                    it.listPoints.forEach {
-                        bounds.include(it.latLng)
-                        googleMap.moveCamera(
-                            CameraUpdateFactory.newLatLngBounds(
-                                bounds.build(),
-                                500
-                            )
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    private fun addMarkers(googleMap: GoogleMap) {
-
-        MockData().listPosition.forEach { relation ->
-            relation.listPoints.forEach {
-                val marker = googleMap.addMarker(
-                    MarkerOptions()
-                        .title(it.timeLocalized)
-                        .position(it.latLng)
-                        .icon(
-                            BitMapHelper.vectorToBitMap(
-                                requireContext(),
-                                R.drawable.bus_stop,
-                                ContextCompat.getColor(requireContext(), R.color.black)
-                            )
-                        )
-                )
-                marker?.tag = relation
-            }
-        }
+//        val mapFragment =
+//            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+//
+//        mapFragment.getMapAsync { googleMap ->
+//            addMarkers(googleMap)
+//
+//            googleMap.setMapStyle(
+//                MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style)
+//            )
+//
+////            googleMap.setInfoWindowAdapter(MarkerInfoAdapter(requireContext()))
+//            googleMap.setOnMapLoadedCallback {
+//                val bounds = LatLngBounds.Builder()
+//                MockData().listPosition.forEach {
+//                    it.listPoints.forEach {
+//                        bounds.include(it.latLng)
+//                        googleMap.moveCamera(
+//                            CameraUpdateFactory.newLatLngBounds(
+//                                bounds.build(),
+//                                500
+//                            )
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun addMarkers(googleMap: GoogleMap) {
+//
+//        MockData().listPosition.forEach { relation ->
+//            relation.listPoints.forEach {
+//                val marker = googleMap.addMarker(
+//                    MarkerOptions()
+//                        .title(it.timeLocalized)
+//                        .position(it.latLng)
+//                        .icon(
+//                            BitMapHelper.vectorToBitMap(
+//                                requireContext(),
+//                                R.drawable.bus_stop,
+//                                ContextCompat.getColor(requireContext(), R.color.black)
+//                            )
+//                        )
+//                )
+//                marker?.tag = relation
+//            }
+//        }
+//    }
     }
 }

@@ -2,6 +2,7 @@ package com.andreesperanca.deolhonobus.repositories
 
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.models.BusLine
+import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.apiCall
 import kotlinx.coroutines.Dispatchers
@@ -29,5 +30,31 @@ class SearchRepository(private val service: RetrofitService) {
         }
     }
 
+    suspend fun getBusStopWithAddressOrName(searchTerms: String) : Resource<List<BusStop>> {
+        return withContext(Dispatchers.IO) {
+            apiCall {
+                val listBusStop = service.getBusStopWithAddressOrName(searchTerms).await()
+                Resource.Success(listBusStop)
+            }
+        }
+    }
+
+    suspend fun getBusStopWithHallCode(hallCode: String) : Resource<List<BusStop>> {
+        return withContext(Dispatchers.IO) {
+            apiCall {
+                val listBusStop = service.getBusStopWithHallCode(hallCode).await()
+                Resource.Success(listBusStop)
+            }
+        }
+    }
+
+    suspend fun getBusStopWithBusLineCode(codigoLinha: String): Resource<List<BusStop>> {
+        return withContext(Dispatchers.IO) {
+            apiCall {
+                val fetchResult = service.getBusStopWithBusLineCode(codigoLinha).await()
+                Resource.Success(fetchResult)
+            }
+        }
+    }
 
 }
