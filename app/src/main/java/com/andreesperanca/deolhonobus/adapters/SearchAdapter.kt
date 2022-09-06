@@ -6,12 +6,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.BusStopDetailsFragmentDirections
 import com.andreesperanca.deolhonobus.R
-import com.andreesperanca.deolhonobus.SearchFragmentDirections
 import com.andreesperanca.deolhonobus.adapters.SearchAdapter.SearchViewHolder
-import com.andreesperanca.deolhonobus.databinding.FragmentSearchBinding
 import com.andreesperanca.deolhonobus.databinding.RvBusItemBinding
 import com.andreesperanca.deolhonobus.mockdata.MockData
 import com.andreesperanca.deolhonobus.models.BusLine
+import com.andreesperanca.deolhonobus.ui.fragments.SearchFragmentDirections
 
 class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
 

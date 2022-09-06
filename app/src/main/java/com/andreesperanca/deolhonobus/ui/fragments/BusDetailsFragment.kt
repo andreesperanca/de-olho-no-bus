@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.R
-import com.andreesperanca.deolhonobus.SearchFragmentDirections
 import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
 import com.andreesperanca.deolhonobus.data.local.FavoriteRoomDataBase
 import com.andreesperanca.deolhonobus.databinding.FragmentBusDetailsBinding
@@ -26,6 +24,7 @@ import org.koin.android.ext.android.inject
 class BusDetailsFragment : Fragment() {
 
     private val args: BusDetailsFragmentArgs by navArgs()
+
     private val db : FavoriteRoomDataBase by inject()
     private val viewModel: BusDetailsViewModel by activityViewModels {
         BusDetailsViewModelFactory(repository = BusDetailsRepository(favoriteDao = db.favoriteDao))
