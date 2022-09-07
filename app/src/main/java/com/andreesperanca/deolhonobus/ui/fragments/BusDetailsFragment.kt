@@ -73,7 +73,6 @@ class BusDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     adapter.updateList(it.data)
-                    adapterUIListener()
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
@@ -142,18 +141,6 @@ class BusDetailsFragment : Fragment() {
                 binding.root.context.getString(R.string.origin, args.bus.secondaryTerminal)
             binding.tvDestination.text =
                 binding.root.context.getString(R.string.destination, args.bus.mainTerminal)
-        }
-    }
-
-    private fun adapterUIListener() {
-        if (adapter.itemCount == 0) {
-            binding.adapterIsEmpty.tvSearchControl.text = getString(R.string.nothingFound)
-            binding.adapterIsEmpty.ivSearchControl.setImageDrawable(
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_nothing_found)
-            )
-            binding.adapterIsEmpty.root.visibility = View.VISIBLE
-        } else {
-            binding.adapterIsEmpty.root.visibility = View.INVISIBLE
         }
     }
 }
