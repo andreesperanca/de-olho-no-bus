@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CustomDialog(
     private val listDialog: List<ListOfVehiclesLocated>,
-    private val seeBusLineInMap: (latLng: LatLng) -> Unit
+    private val seeBusLineInMap: (latLng: LatLng, hour: String) -> Unit
 ) : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

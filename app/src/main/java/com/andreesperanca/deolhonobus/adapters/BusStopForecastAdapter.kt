@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.LatLng
 
 class BusStopForecastAdapter(
     private val supportFragmentManager: FragmentManager,
-    private val seeBusLineInMap: (latLng: LatLng) -> Unit
+    private val seeBusLineInMap: (latLng: LatLng, hour: String) -> Unit
 ) : RecyclerView.Adapter<BusStopForecastViewHolder>() {
 
     private var busStopForecastList: List<ForecastVehicleView> = emptyList()
@@ -61,7 +61,11 @@ class BusStopForecastAdapter(
             }
 
             binding.tvDetails.setOnClickListener {
-                val customDialog = CustomDialog(forecastVehicleView.vehicleList, seeBusLineInMap)
+                val customDialog = CustomDialog(
+                    forecastVehicleView.vehicleList,
+                    seeBusLineInMap
+
+                )
                 customDialog.show(supportFragmentManager, null)
             }
         }

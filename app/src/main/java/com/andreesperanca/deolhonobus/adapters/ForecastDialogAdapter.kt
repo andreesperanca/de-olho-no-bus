@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.LatLng
 
 class ForecastDialogAdapter(
     private val busStopList: List<ListOfVehiclesLocated>,
-    private val seeBusLineInMap: (latLng: LatLng) -> Unit
+    private val seeBusLineInMap: (latLng: LatLng, hour: String) -> Unit
     ) : RecyclerView.Adapter<ForecastDialogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastDialogViewHolder {
@@ -39,7 +39,7 @@ class ForecastDialogAdapter(
                 binding.tvAccessibleForDisability.text = binding.root.context.getString(R.string.accessibleForDisability, "Não")
             }
             binding.tvDetails.setOnClickListener {
-                seeBusLineInMap(LatLng(listOfVehiclesLocated.py,listOfVehiclesLocated.px))
+                seeBusLineInMap(LatLng(listOfVehiclesLocated.py,listOfVehiclesLocated.px),listOfVehiclesLocated.hourLastLocation)
             }
         }
     }

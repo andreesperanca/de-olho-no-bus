@@ -18,6 +18,7 @@ import com.andreesperanca.deolhonobus.models.MarkerInGmaps
 import com.andreesperanca.deolhonobus.models.Place
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusStopDetailsViewModel
 import com.andreesperanca.deolhonobus.util.Resource
+import com.andreesperanca.deolhonobus.util.dateStringFormatter
 import com.andreesperanca.deolhonobus.util.toList
 import com.google.android.gms.maps.model.LatLng
 import org.koin.android.ext.android.inject
@@ -74,7 +75,6 @@ class BusStopDetailsFragment : Fragment() {
 
     private fun configureListeners() {
         binding.btnLocalizeBusStop.setOnClickListener { configureLocalizeButton() }
-
     }
     private fun fetchBusLinesWithBusStopCode() {
         viewModel.getForecastWithBusStopCode(args.busStop.id.toString())
@@ -99,8 +99,8 @@ class BusStopDetailsFragment : Fragment() {
     }
     private fun initAdapter() {
         adapter = BusStopForecastAdapter(childFragmentManager, seeBusLineInMap =
-        {
-            val place = Place(title = "", it)
+        { latLng , hour ->
+            val place = Place(title = dateStringFormatter(hour) , latLng)
             val intent = Intent(requireContext(), MapsActivity::class.java)
             intent.putExtra("markersForTheMap",
                 MarkerInGmaps(title = args.busStop.name,
