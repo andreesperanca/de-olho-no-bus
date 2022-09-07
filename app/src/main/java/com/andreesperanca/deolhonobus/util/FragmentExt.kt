@@ -14,6 +14,5 @@ fun Fragment.hideKeyboard(view: View? = activity?.window?.decorView?.rootView) {
     }
 }
 
-fun Fragment.inputMethodManager() =
-    context?.getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+fun Fragment.inputMethodManager() = context?.getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
 

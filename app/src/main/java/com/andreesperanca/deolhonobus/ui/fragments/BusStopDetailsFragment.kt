@@ -17,20 +17,15 @@ import com.andreesperanca.deolhonobus.databinding.FragmentBusStopDetailsBinding
 import com.andreesperanca.deolhonobus.models.*
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusStopDetailsViewModel
 import com.andreesperanca.deolhonobus.util.Resource
+import com.andreesperanca.deolhonobus.util.toList
 import com.google.android.gms.maps.model.LatLng
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.fragmentScope
 
 class BusStopDetailsFragment : Fragment() {
 
-    private val binding by lazy {
-        FragmentBusStopDetailsBinding.inflate(layoutInflater)
-    }
-    private val adapter by lazy {
-        BusStopForecastAdapter(childFragmentManager)
-    }
+    private val binding by lazy { FragmentBusStopDetailsBinding.inflate(layoutInflater) }
+    private val adapter by lazy { BusStopForecastAdapter(childFragmentManager) }
     private val viewModel: BusStopDetailsViewModel by inject()
-
     private val args: BusStopDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -41,6 +36,7 @@ class BusStopDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //OBSERVABLES
         viewModel.getForecast.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
@@ -56,37 +52,40 @@ class BusStopDetailsFragment : Fragment() {
                 }
             }
         }
-        inputInfoBusStop()
     }
 
+    override fun onStart() {
+        super.onStart()
+        inputInfoBusStop()
+    }
+    override fun onResume() {
+        super.onResume()
+        fetchBusLinesWithBusStopCode()
+        configureRecyclerView()
+        configureListeners()
+    }
+
+    private fun configureListeners() {
+        binding.btnLocalizeBusStop.setOnClickListener { configureLocalizeButton() }
+
+    }
+    private fun fetchBusLinesWithBusStopCode() {
+        viewModel.getForecastWithBusStopCode(args.busStop.id.toString())
+    }
     private fun inputInfoBusStop() {
         binding.tvBusStopName.text = getString(R.string.busStopName, args.busStop.name)
         binding.tvAddress.text = getString(R.string.address, args.busStop.address)
         binding.tvIdCode.text = getString(R.string.idCode, args.busStop.id.toString())
     }
-
-    override fun onResume() {
-        super.onResume()
-        configureRecyclerView()
-        viewModel.getForecastWithBusStopCode(args.busStop.id.toString())
-
-
-        binding.btnLocalizeBusStop.setOnClickListener {
-            configureLozalizeButton()
-        }
-    }
-
-    private fun configureLozalizeButton() {
-        val listMarker = mutableListOf<Place>()
+    private fun configureLocalizeButton() {
         val place = Place(title = args.busStop.name, LatLng(args.busStop.latitude,args.busStop.longitude))
-        listMarker.add(place)
         val intent = Intent(requireContext(), MapsActivity::class.java)
-        intent.putExtra("extrasinput", MarkerInGmaps(args.busStop.name,
-            listMarker = listMarker
+        intent.putExtra("markersForTheMap",
+            MarkerInGmaps(title = args.busStop.name,
+                listMarker = place.toList()
         ))
         startActivity(intent)
     }
-
     private fun configureRecyclerView() {
         binding.rvBusStop.adapter = adapter
         binding.rvBusStop.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)

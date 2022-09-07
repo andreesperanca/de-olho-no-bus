@@ -37,6 +37,7 @@ class BusDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //OBSERVABLES
         viewModel.fetchBusLinePosition.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
