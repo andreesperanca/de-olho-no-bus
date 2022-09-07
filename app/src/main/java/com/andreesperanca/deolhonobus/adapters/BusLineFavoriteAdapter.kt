@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.databinding.RvBusFavoriteItemBinding
 import com.andreesperanca.deolhonobus.models.BusLine
-import com.andreesperanca.deolhonobus.ui.fragments.HomeFragmentDirections
+import com.andreesperanca.deolhonobus.ui.fragments.FavoriteFragmentDirections
+
 
 class BusLineFavoriteAdapter() : Adapter<BusLineFavoriteAdapter.BusLineFavoriteViewHolder>() {
 
@@ -33,8 +34,9 @@ class BusLineFavoriteAdapter() : Adapter<BusLineFavoriteAdapter.BusLineFavoriteV
         notifyItemChanged(busLineList.size)
     }
 
-    inner class BusLineFavoriteViewHolder(private val binding: RvBusFavoriteItemBinding) : ViewHolder
-        (binding.root) {
+    inner class BusLineFavoriteViewHolder(private val binding: RvBusFavoriteItemBinding) :
+        ViewHolder
+            (binding.root) {
 
         fun bind(busLine: BusLine) {
             if (busLine.direction == 1) {
@@ -52,7 +54,8 @@ class BusLineFavoriteAdapter() : Adapter<BusLineFavoriteAdapter.BusLineFavoriteV
                 binding.root.context.getString(R.string.busNumber, busLine.firstLabel)
 
             binding.root.setOnClickListener {
-                it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToBusDetailsFragment(busLine))
+                it.findNavController()
+                    .navigate(FavoriteFragmentDirections.actionHomeFragmentToBusDetailsFragment(busLine))
             }
         }
     }

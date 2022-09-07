@@ -8,7 +8,8 @@ import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.adapters.BusStopFavoriteAdapter.BusStopFavoriteViewHolder
 import com.andreesperanca.deolhonobus.databinding.RvBusStopFavoriteItemBinding
 import com.andreesperanca.deolhonobus.models.BusStop
-import com.andreesperanca.deolhonobus.ui.fragments.HomeFragmentDirections
+import com.andreesperanca.deolhonobus.ui.fragments.FavoriteFragment
+import com.andreesperanca.deolhonobus.ui.fragments.FavoriteFragmentDirections
 
 class BusStopFavoriteAdapter : RecyclerView.Adapter<BusStopFavoriteViewHolder>() {
 
@@ -46,7 +47,7 @@ class BusStopFavoriteAdapter : RecyclerView.Adapter<BusStopFavoriteViewHolder>()
 
             binding.root.setOnClickListener {
                 it.findNavController().
-                navigate(HomeFragmentDirections.actionHomeFragmentToBusStopDetailsFragment(busStop))
+                navigate(FavoriteFragmentDirections.actionHomeFragmentToBusStopDetailsFragment(busStop))
             }
         }
     }

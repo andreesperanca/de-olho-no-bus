@@ -5,7 +5,7 @@ import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 import kotlinx.coroutines.flow.Flow
 
-class HomeRepository (private val favoriteDao: FavoriteDao ) {
+class FavoriteRepository (private val favoriteDao: FavoriteDao ) {
 
     val allFavoritesBusLines : Flow<List<BusLine>> = favoriteDao.getFavoritesBusLine()
 

@@ -37,7 +37,10 @@
     <string name="doASearch">Faça uma pesquisa.</string>
     <string name="nothingFound">Nada foi encontrado, corrija os parâmetros de busca e tente novamente.</string>
     <string name="favoritesBusStop">Paradas favoritas</string>
-    <string name="favoritesBusLines">Linhas Favoritas</string>
+    <string name="favoritesBusLines">Linhas favoritas</string>
     <string name="favorites">Favoritos</string>
+    <string name="noHaveBusLinesFavorites">Favorite linhas para que elas apareçam aqui.</string>
+    <string name="noHaveBusStopsFavorites">Favorite paradas para que elas apareçam aqui.</string>
+
 
 </resources>

@@ -7,11 +7,11 @@ import com.andreesperanca.deolhonobus.data.remote.AppRetrofit
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
 import com.andreesperanca.deolhonobus.repositories.BusStopDetailsRepository
-import com.andreesperanca.deolhonobus.repositories.HomeRepository
+import com.andreesperanca.deolhonobus.repositories.FavoriteRepository
 import com.andreesperanca.deolhonobus.repositories.SearchRepository
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusDetailsViewModel
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusStopDetailsViewModel
-import com.andreesperanca.deolhonobus.ui.viewmodels.HomeViewModel
+import com.andreesperanca.deolhonobus.ui.viewmodels.FavoriteViewModel
 import com.andreesperanca.deolhonobus.ui.viewmodels.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -38,8 +38,8 @@ val appModules = module {
         SearchRepository(service = get(), get())
     }
 
-    single<HomeRepository> {
-        HomeRepository(get())
+    single<FavoriteRepository> {
+        FavoriteRepository(get())
     }
 
     viewModel<SearchViewModel> {
@@ -62,7 +62,7 @@ val appModules = module {
         BusDetailsViewModel(repository = get())
     }
 
-    viewModel<HomeViewModel> {
-        HomeViewModel(get())
+    viewModel<FavoriteViewModel> {
+        FavoriteViewModel(get())
     }
 }
