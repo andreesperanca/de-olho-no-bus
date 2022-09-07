@@ -31,5 +31,7 @@
     <string name="accessibleForDisability">Suporte para PCDs: %1$s</string>
     <string name="hourLastLocation">Hora da última localização: %1$s</string>
     <string name="seeOnMap">Ver no mapa</string>
+    <string name="noHaveData">Não há dados para serem mostrados.</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>

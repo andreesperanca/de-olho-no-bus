@@ -48,15 +48,9 @@ class BusStopAdapter : RecyclerView.Adapter<BusStopViewHolder>() {
             binding.tvDetails.setOnClickListener {
                 if (it.findNavController().currentDestination?.id == R.id.searchFragment) {
                     it.findNavController()
-                        .navigate(
-                            SearchFragmentDirections.actionSearchFragmentToBusStopDetailsFragment(
-                                busStop
-                            )
-                        )
+                        .navigate(SearchFragmentDirections.actionSearchFragmentToBusStopDetailsFragment(busStop))
                 } else {
-                    BusDetailsFragmentDirections.actionBusDetailsFragmentToBusStopDetailsFragment(
-                        busStop
-                    )
+                    it.findNavController().navigate(BusDetailsFragmentDirections.actionBusDetailsFragmentToBusStopDetailsFragment(busStop))
                 }
             }
         }
