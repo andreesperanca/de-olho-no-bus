@@ -28,17 +28,16 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BusDetailsFragment : Fragment() {
 
     private val args: BusDetailsFragmentArgs by navArgs()
-    private val service: RetrofitService by inject()
     private val adapter by lazy {
         BusStopAdapter()
     }
-    private val viewModel: BusDetailsViewModel by activityViewModels {
-        BusDetailsViewModelFactory(repository = BusDetailsRepository(service = service))
-    }
+    private val viewModel: BusDetailsViewModel by viewModel()
+
     private val binding by lazy {
         FragmentBusDetailsBinding.inflate(layoutInflater)
     }
@@ -107,17 +106,13 @@ class BusDetailsFragment : Fragment() {
         configureRecyclerView()
         putBusInfo()
         configureFavoriteButton()
-        configureLocalizeButton()
+        binding.btnFavorite.setOnClickListener {
+            viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
+        }
     }
 
     private fun fetchBusStopWithBusLineCode() {
         viewModel.getBusStopWithBusLineCode(args.bus.idCode.toString())
-    }
-
-    private fun configureLocalizeButton() {
-        binding.btnLocalize.setOnClickListener {
-            viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
-        }
     }
 
     private fun configureFavoriteButton() {
@@ -156,5 +151,4 @@ class BusDetailsFragment : Fragment() {
                 binding.root.context.getString(R.string.destination, args.bus.mainTerminal)
         }
     }
-
 }

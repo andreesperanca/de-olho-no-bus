@@ -12,6 +12,7 @@ import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.Place
 import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
 import com.andreesperanca.deolhonobus.util.Resource
+import com.andreesperanca.deolhonobus.util.SingleEventLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,8 +24,8 @@ class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewMo
     private var _searchBusStop = MutableLiveData<Resource<List<BusStop>>>()
     val searchBusStop: LiveData<Resource<List<BusStop>>> = _searchBusStop
 
-    private var _fetchBusLinePosition = MutableLiveData<Resource<List<Place>>>()
-    val fetchBusLinePosition: LiveData<Resource<List<Place>>> = _fetchBusLinePosition
+    private var _fetchBusLinePosition = SingleEventLiveData<Resource<List<Place>>>()
+    val fetchBusLinePosition: SingleEventLiveData<Resource<List<Place>>> = _fetchBusLinePosition
 
     fun getBusStopWithBusLineCode(busLineCode: String) {
         _searchBusStop.postValue(Resource.Loading())

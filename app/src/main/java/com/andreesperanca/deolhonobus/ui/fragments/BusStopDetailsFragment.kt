@@ -52,6 +52,7 @@ class BusStopDetailsFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }

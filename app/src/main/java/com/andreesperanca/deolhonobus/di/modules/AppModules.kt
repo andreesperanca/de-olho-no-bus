@@ -4,8 +4,10 @@ import androidx.room.Room
 import com.andreesperanca.deolhonobus.data.local.FavoriteRoomDataBase
 import com.andreesperanca.deolhonobus.data.remote.AppRetrofit
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
+import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
 import com.andreesperanca.deolhonobus.repositories.BusStopDetailsRepository
 import com.andreesperanca.deolhonobus.repositories.SearchRepository
+import com.andreesperanca.deolhonobus.ui.viewmodels.BusDetailsViewModel
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusStopDetailsViewModel
 import com.andreesperanca.deolhonobus.ui.viewmodels.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -41,5 +43,15 @@ val appModules = module {
 
     viewModel<BusStopDetailsViewModel> {
         BusStopDetailsViewModel(repository = get())
+    }
+
+
+
+    single<BusDetailsRepository> {
+        BusDetailsRepository(service = get())
+    }
+
+    viewModel<BusDetailsViewModel> {
+        BusDetailsViewModel(repository = get())
     }
 }
