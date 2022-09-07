@@ -83,7 +83,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .icon(
                         BitMapHelper.vectorToBitMap(
                             this,
-                            R.drawable.bus_stop,
+                            R.drawable.ic_location_24,
                             ContextCompat.getColor(this, R.color.dark_blue)
                         )
                     )

@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
+import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.adapters.BusLineAdapter
+import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
 import com.andreesperanca.deolhonobus.databinding.FragmentSearchBinding
 import com.andreesperanca.deolhonobus.ui.viewmodels.SearchViewModel
 import com.andreesperanca.deolhonobus.util.Resource
@@ -19,17 +21,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
 
-    private val binding by lazy {
-        FragmentSearchBinding.inflate(layoutInflater)
-    }
-    private val adapter by lazy {
-        BusLineAdapter()
-    }
-
-    private val adapterBusStop by lazy {
-        BusStopAdapter()
-    }
-
+    private val binding by lazy { FragmentSearchBinding.inflate(layoutInflater) }
+    private val adapter by lazy { BusLineAdapter() }
+    private val adapterBusStop by lazy { BusStopAdapter() }
     private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
@@ -46,8 +40,8 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    configureBusStopAdapter(adapterBusStop)
                     adapterBusStop.updateList(it.data)
+                    configureBusStopAdapter(adapterBusStop)
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
@@ -63,8 +57,8 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    configureBusStopAdapter(adapterBusStop)
                     adapterBusStop.updateList(it.data)
+                    configureBusStopAdapter(adapterBusStop)
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
@@ -80,8 +74,8 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    configureBusStopAdapter(adapterBusStop)
                     adapterBusStop.updateList(it.data)
+                    configureBusStopAdapter(adapterBusStop)
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
@@ -91,14 +85,14 @@ class SearchFragment : Fragment() {
             }
         }
 
-        viewModel.seachResult.observe(viewLifecycleOwner) {
+        viewModel.fetchBusLineWithDenominationOrName.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    configureBusLineAdapter(adapter)
                     adapter.updateList(it.data)
+                    configureBusLineAdapter(adapter)
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
@@ -125,7 +119,16 @@ class SearchFragment : Fragment() {
 
         }
 
-        binding.rgSearchType.setOnCheckedChangeListener { group, checkedId ->
+    }
+
+    override fun onStart() {
+        super.onStart()
+        configureListeners()
+        configureAdapter()
+    }
+
+    private fun configureListeners() {
+        binding.rgSearchType.setOnCheckedChangeListener { _, checkedId ->
             if (binding.busStop.id == checkedId) {
                 binding.rgSearchBusStopSelected.visibility = View.VISIBLE
                 binding.rgSearchLineSelected.visibility = View.INVISIBLE
@@ -134,36 +137,59 @@ class SearchFragment : Fragment() {
                 binding.rgSearchLineSelected.visibility = View.VISIBLE
             }
         }
-
         binding.btnSearch.setOnClickListener {
             if (binding.lines.isChecked) {
                 viewModel.getAuthInApi()
-                viewModel.getBusLines(binding.searchBar.text.toString())
+                viewModel.getBusLineWithDenominationOrNumber(binding.etSearchBar.text.toString())
             } else {
                 when (true) {
-                    binding.rbLineName.isChecked -> run { viewModel.getBusStopWithBusLineCode(binding.searchBar.text.toString()) }
-                    binding.rbBusStop.isChecked -> run { viewModel.getBusStopWithAddressOrName(binding.searchBar.text.toString()) }
-                    else -> run { viewModel.getBusStopWithHallCode(binding.searchBar.text.toString()) }
+                    binding.rbLineName.isChecked -> run {
+                        viewModel.getBusStopWithBusLineCode(
+                            binding.etSearchBar.text.toString()
+                        )
+                    }
+                    binding.rbBusStop.isChecked -> run {
+                        viewModel.getBusStopWithAddressOrName(
+                            binding.etSearchBar.text.toString()
+                        )
+                    }
+                    else -> run { viewModel.getBusStopWithHallCode(binding.etSearchBar.text.toString()) }
                 }
             }
             hideKeyboard(binding.root)
         }
     }
 
-    private fun configureBusLineAdapter(adapter: BusLineAdapter) {
+    private fun configureAdapter() {
         val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        binding.rvSearchFragment.adapter = adapter
-        binding.rvSearchFragment.layoutManager =
-            LinearLayoutManager(requireContext(), VERTICAL, false)
+        binding.rvSearchFragment.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
         binding.rvSearchFragment.addItemDecoration(divisor)
     }
 
-    private fun configureBusStopAdapter(adapter: BusStopAdapter) {
-        val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+    private fun configureBusLineAdapter(adapter: BusLineAdapter) {
         binding.rvSearchFragment.adapter = adapter
-        binding.rvSearchFragment.layoutManager =
-            LinearLayoutManager(requireContext(), VERTICAL, false)
-        binding.rvSearchFragment.addItemDecoration(divisor)
+        if (adapter.itemCount == 0) {
+            binding.adapterIsEmpty.tvSearchControl.text = getString(R.string.nothingFound)
+            binding.adapterIsEmpty.ivSearchControl.
+            setImageDrawable(AppCompatResources.
+            getDrawable(requireContext(), R.drawable.ic_nothing_found))
+            binding.adapterIsEmpty.root.visibility = View.VISIBLE
+        } else {
+            binding.adapterIsEmpty.root.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun configureBusStopAdapter(adapter: BusStopAdapter) {
+        binding.rvSearchFragment.adapter = adapter
+        if (adapter.itemCount == 0) {
+            binding.adapterIsEmpty.tvSearchControl.text = getString(R.string.nothingFound)
+            binding.adapterIsEmpty.ivSearchControl.
+            setImageDrawable(AppCompatResources.
+            getDrawable(requireContext(), R.drawable.ic_nothing_found))
+            binding.adapterIsEmpty.root.visibility = View.VISIBLE
+        } else {
+            binding.adapterIsEmpty.root.visibility = View.INVISIBLE
+        }
     }
 
 }

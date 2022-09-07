@@ -105,7 +105,6 @@ class BusDetailsFragment : Fragment() {
         fetchBusStopWithBusLineCode()
         configureRecyclerView()
         putBusInfo()
-        configureFavoriteButton()
         binding.btnFavorite.setOnClickListener {
             viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
         }
@@ -113,9 +112,6 @@ class BusDetailsFragment : Fragment() {
 
     private fun fetchBusStopWithBusLineCode() {
         viewModel.getBusStopWithBusLineCode(args.bus.idCode.toString())
-    }
-
-    private fun configureFavoriteButton() {
     }
 
     private fun configureRecyclerView() {

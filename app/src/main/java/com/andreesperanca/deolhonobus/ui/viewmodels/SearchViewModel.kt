@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
 
-    private val _searchResult = MutableLiveData<Resource<List<BusLine>>>()
-    val seachResult: LiveData<Resource<List<BusLine>>> = _searchResult
+    private val _fetchBusLineWithDenominationOrName = MutableLiveData<Resource<List<BusLine>>>()
+    val fetchBusLineWithDenominationOrName: LiveData<Resource<List<BusLine>>> = _fetchBusLineWithDenominationOrName
 
     private val _authResult = MutableLiveData<Resource<String>>()
     val authResult: LiveData<Resource<String>> = _authResult
@@ -33,11 +33,11 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
         _authResult.postValue(resultAuth)
     }
 
-    fun getBusLines(searchTerms: String) {
-        _searchResult.postValue(Resource.Loading())
+    fun getBusLineWithDenominationOrNumber(searchTerms: String) {
+        _fetchBusLineWithDenominationOrName.postValue(Resource.Loading())
         viewModelScope.launch(Dispatchers.Main) {
             val fetchResult = repository.getBusLines(searchTerms)
-            _searchResult.postValue(fetchResult)
+            _fetchBusLineWithDenominationOrName.postValue(fetchResult)
         }
     }
 

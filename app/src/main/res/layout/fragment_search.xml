@@ -40,7 +40,7 @@
                 style="@style/Theme.DeOlhoNoBus.RadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/seach_type_background_selector"
+                android:background="@drawable/search_type_background_selector"
                 android:drawableTop="@drawable/ic_bus"
                 android:padding="20dp"
                 android:text="@string/lines"
@@ -51,7 +51,7 @@
                 style="@style/Theme.DeOlhoNoBus.RadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/seach_type_background_selector"
+                android:background="@drawable/search_type_background_selector"
                 android:drawableTop="@drawable/bus_stop"
                 android:padding="20dp"
                 android:text="@string/stop"
@@ -74,30 +74,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@drawable/seach_bus_stop_background_selector"
+                android:background="@drawable/search_bus_stop_background_selector"
                 android:button="@android:color/transparent"
                 android:padding="5dp"
-                android:text="@string/numberLine" />
+                android:text="@string/busLineCode" />
 
             <RadioButton
                 android:id="@+id/rb_bus_stop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@drawable/seach_bus_stop_background_selector"
+                android:background="@drawable/search_bus_stop_background_selector"
                 android:button="@android:color/transparent"
                 android:padding="5dp"
-                android:text="@string/nameLineStop" />
+                android:text="@string/nameOrAddress" />
 
             <RadioButton
                 android:id="@+id/rb_hall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@drawable/seach_bus_stop_background_selector"
+                android:background="@drawable/search_bus_stop_background_selector"
                 android:button="@android:color/transparent"
                 android:padding="5dp"
-                android:text="@string/hall" />
+                android:text="@string/hallCode" />
 
 
         </RadioGroup>
@@ -117,23 +117,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@drawable/seach_bus_stop_background_selector"
+                android:background="@drawable/search_bus_stop_background_selector"
                 android:button="@android:color/transparent"
                 android:padding="5dp"
-                android:text="@string/lineNameOrNumber" />
+                android:text="@string/denominationOrNumber" />
 
         </RadioGroup>
 
         <EditText
-            android:id="@+id/searchBar"
+            android:id="@+id/et_searchBar"
             style="@style/Theme.DeOlhoNoBus.EditTextForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rg_search_bus_stop_selected"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_margin="15dp"
             android:hint="@string/valueForSearch" />
 
         <Button
@@ -141,7 +138,7 @@
             style="@style/Theme.DeOlhoNoBus.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/searchBar"
+            android:layout_below="@id/et_searchBar"
             android:gravity="center"
             android:text="@string/search" />
 
@@ -151,7 +148,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/relativeTopLayout">
 
@@ -161,18 +157,29 @@
             tools:listitem="@layout/rv_bus_item"
             android:layout_height="match_parent" />
 
+        <include
+            android:id="@+id/adapterIsEmpty"
+            layout="@layout/empty_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"/>
+
         <ProgressBar
             android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/dark_blue"
-            android:progressTint="@color/dark_blue" />
+            android:indeterminateTint="@color/dark_blue"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
