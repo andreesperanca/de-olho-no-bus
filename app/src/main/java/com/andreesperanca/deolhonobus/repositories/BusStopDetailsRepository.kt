@@ -18,7 +18,8 @@ class BusStopDetailsRepository(private val service: RetrofitService) {
                 val resultFetch = service.getForecastWithBusStopCode(busStopCode).await()
                 val resultMap = mutableListOf<ForecastVehicleView>()
                 resultFetch.busStop.listOfLinesFound.map {
-                    val forecastView = ForecastVehicleView(
+                    val forecastView =
+                        ForecastVehicleView(
                         sign = it.sign,
                         origin = it.origin,
                         lineWay = it.lineWay,

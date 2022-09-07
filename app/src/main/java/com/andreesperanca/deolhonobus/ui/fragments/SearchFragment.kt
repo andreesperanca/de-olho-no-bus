@@ -1,7 +1,6 @@
 package com.andreesperanca.deolhonobus.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
-import com.andreesperanca.deolhonobus.adapters.SearchAdapter
-import com.andreesperanca.deolhonobus.databinding.FragmentHomeBinding
+import com.andreesperanca.deolhonobus.adapters.BusLineAdapter
 import com.andreesperanca.deolhonobus.databinding.FragmentSearchBinding
-import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.ui.viewmodels.SearchViewModel
 import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.hideKeyboard
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
@@ -28,7 +23,7 @@ class SearchFragment : Fragment() {
         FragmentSearchBinding.inflate(layoutInflater)
     }
     private val adapter by lazy {
-        SearchAdapter()
+        BusLineAdapter()
     }
 
     private val adapterBusStop by lazy {
@@ -155,7 +150,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun configureBusLineAdapter(adapter: SearchAdapter) {
+    private fun configureBusLineAdapter(adapter: BusLineAdapter) {
         val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.rvSearchFragment.adapter = adapter
         binding.rvSearchFragment.layoutManager =

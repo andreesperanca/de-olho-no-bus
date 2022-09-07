@@ -16,6 +16,7 @@ import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.databinding.FragmentBusDetailsBinding
+import com.andreesperanca.deolhonobus.models.MarkerInGmaps
 import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusDetailsViewModel
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusDetailsViewModelFactory
@@ -45,8 +46,25 @@ class BusDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getBusStopWithBusLineCode(args.bus.idCode.toString())
-
+        viewModel.fetchBusLinePosition.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    val action = BusDetailsFragmentDirections.actionBusDetailsFragmentToGmapsFragment(
+                        MarkerInGmaps(args.bus.firstLabel, it.data ?: emptyList())
+                    )
+                    findNavController().navigate(action)
+                    binding.progressBar.visibility = View.INVISIBLE
+                    //ABRIR O MAPA COM OS MARCADORES
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+        }
         viewModel.searchBusStop.observe(viewLifecycleOwner) {
             when(it) {
                 is Resource.Loading -> {
@@ -69,30 +87,28 @@ class BusDetailsFragment : Fragment() {
                 binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.ic_not_favorite))
             }
         }
-        configureRecyclerView()
     }
     override fun onStart() {
         super.onStart()
+        fetchBusStopWithBusLineCode()
+        configureRecyclerView()
         putBusInfo()
         configureFavoriteButton()
         configureLocalizeButton()
     }
-
-    override fun onResume() {
-        super.onResume()
+    private fun fetchBusStopWithBusLineCode() {
+        viewModel.getBusStopWithBusLineCode(args.bus.idCode.toString())
     }
-
     private fun configureLocalizeButton() {
         binding.btnLocalize.setOnClickListener {
-            if(findNavController().currentDestination?.id == R.id.busDetailsFragment) {
-                findNavController().navigate(R.id.action_busDetailsFragment_to_gmapsFragment)
-            }
+            viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
+//            if(findNavController().currentDestination?.id == R.id.busDetailsFragment) {
+//                findNavController().navigate(R.id.action_busDetailsFragment_to_gmapsFragment)
+//            }
         }
     }
+
     private fun configureFavoriteButton() {
-        binding.btnFavorite.setOnClickListener {
-            viewModel.favoriteBusLine(args.bus)
-        }
     }
     private fun configureRecyclerView() {
         val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)

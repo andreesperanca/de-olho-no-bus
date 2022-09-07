@@ -28,7 +28,11 @@
         android:id="@+id/gmapsFragment"
         android:name="com.andreesperanca.deolhonobus.GmapsFragment"
         android:label="fragment_gmaps"
-        tools:layout="@layout/fragment_gmaps" />
+        tools:layout="@layout/fragment_gmaps" >
+        <argument
+            android:name="markeringmaps"
+            app:argType="com.andreesperanca.deolhonobus.models.MarkerInGmaps" />
+    </fragment>
     <fragment
         android:id="@+id/busDetailsFragment"
         android:name="com.andreesperanca.deolhonobus.ui.fragments.BusDetailsFragment"

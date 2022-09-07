@@ -5,23 +5,23 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.R
-import com.andreesperanca.deolhonobus.adapters.SearchAdapter.SearchViewHolder
+import com.andreesperanca.deolhonobus.adapters.BusLineAdapter.BusLineViewHolder
 import com.andreesperanca.deolhonobus.databinding.RvBusItemBinding
 import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.ui.fragments.BusStopDetailsFragmentDirections
 import com.andreesperanca.deolhonobus.ui.fragments.SearchFragmentDirections
 
-class SearchAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
+class BusLineAdapter() : RecyclerView.Adapter<BusLineViewHolder>() {
 
     private var busLineList: List<BusLine> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusLineViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = RvBusItemBinding.inflate(inflater, parent, false)
-        return SearchViewHolder(binding)
+        return BusLineViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BusLineViewHolder, position: Int) {
         holder.bind(busLineList[position])
     }
 
@@ -34,7 +34,7 @@ class SearchAdapter() : RecyclerView.Adapter<SearchViewHolder>() {
         notifyItemChanged(busLineList.size)
     }
 
-    inner class SearchViewHolder(private val binding: RvBusItemBinding) :
+    inner class BusLineViewHolder(private val binding: RvBusItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(busLine: BusLine) {

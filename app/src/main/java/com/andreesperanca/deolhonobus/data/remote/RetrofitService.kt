@@ -1,6 +1,7 @@
 package com.andreesperanca.deolhonobus.data.remote
 
 import com.andreesperanca.deolhonobus.models.BusLine
+import com.andreesperanca.deolhonobus.models.BusLinePosition
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.BusStopPrediction
 import com.andreesperanca.deolhonobus.util.API_KEY
@@ -28,5 +29,8 @@ interface RetrofitService {
 
     @GET("Parada/BuscarParadasPorCorredor")
     fun getBusStopWithHallCode(@Query("codigoCorredor") codigoCorredor: String): Call<List<BusStop>>
+
+    @GET("Posicao/Linha")
+    fun getPositionBusLineWithBusLineCode(@Query("codigoLinha") codigoLinha: String): Call<BusLinePosition>
 
 }
