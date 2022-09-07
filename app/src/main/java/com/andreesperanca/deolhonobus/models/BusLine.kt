@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
+@Entity(tableName = "favoritesBusLine")
 @Parcelize
-@Entity(tableName = "busLine")
 data class BusLine(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @SerializedName("cl")

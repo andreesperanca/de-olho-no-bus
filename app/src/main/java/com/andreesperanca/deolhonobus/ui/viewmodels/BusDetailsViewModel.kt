@@ -1,9 +1,7 @@
 package com.andreesperanca.deolhonobus.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.Place
 import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
@@ -25,7 +23,7 @@ class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewMo
 
     fun getBusStopWithBusLineCode(busLineCode: String) {
         _searchBusStop.postValue(Resource.Loading())
-        viewModelScope.launch (Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.Main) {
             val searchResult = repository.getBusStopWithBusLineCode(busLineCode)
             _searchBusStop.postValue(searchResult)
         }
@@ -36,6 +34,28 @@ class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewMo
         viewModelScope.launch(Dispatchers.Main) {
             val fetchResult = repository.getBusPositionWithBusLineCode(busLineCode)
             _fetchBusLinePosition.postValue(fetchResult)
+        }
+    }
+
+    fun favoriteVerify(busLine : BusLine) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if(repository.favoriteVerify(busLine.idCode) != null) {
+                _isFavorite.postValue(true)
+            } else {
+                _isFavorite.postValue(false)
+            }
+        }
+    }
+
+    fun favoriteBusLine(busLine: BusLine) {
+        viewModelScope.launch (Dispatchers.IO) {
+            if (repository.favoriteVerify(busLine.idCode) != null) {
+                repository.deleteFavoriteBusLine(busLine.idCode)
+                _isFavorite.postValue(false)
+            } else {
+                repository.favoriteBusLine(busLine)
+                _isFavorite.postValue(true)
+            }
         }
     }
 }

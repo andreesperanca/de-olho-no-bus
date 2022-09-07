@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -64,6 +65,7 @@ class BusDetailsFragment : Fragment() {
                     snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
+                else -> {snackBarCreator(binding.root, it?.message.toString())}
             }
         }
 
@@ -94,10 +96,15 @@ class BusDetailsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        fetchIfBusLineIsFavorite()
         fetchBusLineStopWithBusLineCode()
         configureListeners()
         configureRecyclerView()
         linksInformation()
+    }
+
+    private fun fetchIfBusLineIsFavorite() {
+        viewModel.favoriteVerify(args.bus)
     }
 
     private fun fetchBusLineStopWithBusLineCode() {
@@ -107,6 +114,10 @@ class BusDetailsFragment : Fragment() {
     private fun configureListeners() {
         binding.btnLocalize.setOnClickListener {
             viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
+        }
+
+        binding.btnFavorite.setOnClickListener {
+            viewModel.favoriteBusLine(args.bus)
         }
     }
 

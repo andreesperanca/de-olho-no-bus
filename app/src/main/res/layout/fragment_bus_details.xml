@@ -154,7 +154,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="5dp"
             android:text="@string/lineStops"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/dark_blue"
             android:textSize="25sp"
             android:textStyle="bold" />
 

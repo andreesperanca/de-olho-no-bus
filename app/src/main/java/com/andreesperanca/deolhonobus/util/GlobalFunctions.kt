@@ -11,6 +11,11 @@ fun snackBarCreator(view: View, message: String) {
 
 fun dateStringFormatter (dateString: String): String {
     val timestamp = Instant.parse(dateString).atZone(ZoneId.of(("America/Sao_Paulo")))
-    val hour = "${timestamp.hour}:${timestamp.minute}"
+    var minutesStamp = timestamp.minute.toString()
+
+    if(minutesStamp.toInt() < 10) {
+        minutesStamp = "0${timestamp.minute}"
+    }
+    val hour = "${timestamp.hour}:${minutesStamp}"
     return hour
 }

@@ -23,7 +23,14 @@
         android:id="@+id/homeFragment"
         android:name="com.andreesperanca.deolhonobus.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_busDetailsFragment"
+            app:destination="@id/busDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_busStopDetailsFragment"
+            app:destination="@id/busStopDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/busDetailsFragment"
         android:name="com.andreesperanca.deolhonobus.ui.fragments.BusDetailsFragment"

@@ -14,19 +14,22 @@ import kotlinx.coroutines.launch
 class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
 
     private val _fetchBusLineWithDenominationOrName = MutableLiveData<Resource<List<BusLine>>>()
-    val fetchBusLineWithDenominationOrName: LiveData<Resource<List<BusLine>>> = _fetchBusLineWithDenominationOrName
+    val fetchBusLineWithDenominationOrName: LiveData<Resource<List<BusLine>>> =
+        _fetchBusLineWithDenominationOrName
 
     private val _authResult = MutableLiveData<Resource<String>>()
     val authResult: LiveData<Resource<String>> = _authResult
 
     private val _fetchBusStopWithNameOrAddress = MutableLiveData<Resource<List<BusStop>>>()
-    val fetchBusStopWithNameOrAddress: LiveData<Resource<List<BusStop>>> = _fetchBusStopWithNameOrAddress
+    val fetchBusStopWithNameOrAddress: LiveData<Resource<List<BusStop>>> =
+        _fetchBusStopWithNameOrAddress
 
     private val _fetchBusStopWithHallCode = MutableLiveData<Resource<List<BusStop>>>()
     val fetchBusStopWithHallCode: LiveData<Resource<List<BusStop>>> = _fetchBusStopWithHallCode
 
     private val _fetchBusStopWithBusLineCode = MutableLiveData<Resource<List<BusStop>>>()
-    val fetchBusStopWithBusLineCode: LiveData<Resource<List<BusStop>>> = _fetchBusStopWithBusLineCode
+    val fetchBusStopWithBusLineCode: LiveData<Resource<List<BusStop>>> =
+        _fetchBusStopWithBusLineCode
 
     fun getAuthInApi() = viewModelScope.launch(Dispatchers.Main) {
         val resultAuth = repository.getAuthInApi()
@@ -51,7 +54,7 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
 
     fun getBusStopWithHallCode(hallCode: String) {
         _fetchBusStopWithHallCode.postValue(Resource.Loading())
-        viewModelScope.launch(Dispatchers.Main){
+        viewModelScope.launch(Dispatchers.Main) {
             val fetchResult = repository.getBusStopWithHallCode(hallCode)
             _fetchBusStopWithHallCode.postValue(fetchResult)
         }
@@ -63,6 +66,5 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
             val fetchResult = repository.getBusStopWithBusLineCode(searchTerms)
             _fetchBusStopWithBusLineCode.postValue(fetchResult)
         }
-
     }
 }

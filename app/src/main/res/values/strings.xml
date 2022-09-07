@@ -21,7 +21,7 @@
     <string name="operationMode">Modo de operação: %1$s</string>
     <string name="localize">Acompanhar</string>
     <string name="busStopName">Nome: %1$s</string>
-    <string name="address">"Endereço: %1$s"</string>
+    <string name="address">"Endereço:\n %1$s"</string>
     <string name="idCode">Código identificador: %1$s</string>
     <string name="busLine">Linhas que passam aqui</string>
     <string name="lineStops">Paradas da linha</string>
@@ -36,5 +36,8 @@
     <string name="noResultsFound">Nenhum resultado foi encontrado para a busca.</string>
     <string name="doASearch">Faça uma pesquisa.</string>
     <string name="nothingFound">Nada foi encontrado, corrija os parâmetros de busca e tente novamente.</string>
+    <string name="favoritesBusStop">Paradas favoritas</string>
+    <string name="favoritesBusLines">Linhas Favoritas</string>
+    <string name="favorites">Favoritos</string>
 
 </resources>

@@ -60,6 +60,14 @@ class BusStopDetailsFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            if (isFavorite == true) {
+                binding.btnFavoriteBusStop.setImageDrawable(resources.getDrawable(R.drawable.ic_is_favorite))
+            } else {
+                binding.btnFavoriteBusStop.setImageDrawable(resources.getDrawable(R.drawable.ic_not_favorite))
+            }
+        }
     }
 
     override fun onStart() {
@@ -68,16 +76,22 @@ class BusStopDetailsFragment : Fragment() {
     }
     override fun onResume() {
         super.onResume()
+        fetchIfIsFavoriteBusStop()
         fetchBusLinesWithBusStopCode()
         configureRecyclerView()
         configureListeners()
     }
 
+    private fun fetchIfIsFavoriteBusStop() {
+        viewModel.favoriteVerify(args.busStop)
+    }
+
     private fun configureListeners() {
         binding.btnLocalizeBusStop.setOnClickListener { configureLocalizeButton() }
+        binding.btnFavoriteBusStop.setOnClickListener { viewModel.favoriteBusLine(args.busStop) }
     }
     private fun fetchBusLinesWithBusStopCode() {
-        viewModel.getForecastWithBusStopCode(args.busStop.id.toString())
+        viewModel.getForecastWithBusStopCode(args.busStop.idCodeBusStop.toString())
     }
     private fun inputInfoBusStop() {
         binding.tvBusStopName.text = getString(R.string.busStopName, args.busStop.name)

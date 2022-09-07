@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/txt_title"
-        android:text="asds"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
 </LinearLayout>

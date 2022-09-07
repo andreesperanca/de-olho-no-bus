@@ -1,7 +1,8 @@
 package com.andreesperanca.deolhonobus.repositories
 
-import android.text.format.DateFormat
+import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
+import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.Place
 import com.andreesperanca.deolhonobus.util.Resource
@@ -11,14 +12,11 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.await
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.*
 
-class BusDetailsRepository(private val service: RetrofitService) {
+class BusDetailsRepository(
+    private val service: RetrofitService,
+    private val favoriteDao: FavoriteDao) {
 
     suspend fun getBusStopWithBusLineCode(codigoLinha: String): Resource<List<BusStop>> {
         return withContext(Dispatchers.IO) {
@@ -44,4 +42,13 @@ class BusDetailsRepository(private val service: RetrofitService) {
         }
     }
 
+    suspend fun favoriteBusLine(busLine: BusLine) {
+        favoriteDao.favoriteBusLine(busLine)
+    }
+
+    fun deleteFavoriteBusLine(key: Int) {
+        favoriteDao.deleteFavoriteBusLine(key)
+    }
+
+    fun favoriteVerify(key: Int) : BusLine? = favoriteDao.favoriteBusLineVerify(key)
 }

@@ -9,7 +9,7 @@ import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 
 @Database(
-    entities = [BusLine::class],
+    entities = [BusLine::class,BusStop::class],
     version = 1,
     exportSchema = false
 )
