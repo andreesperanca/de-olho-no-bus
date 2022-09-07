@@ -1,13 +1,9 @@
 package com.andreesperanca.deolhonobus.ui.viewmodels
 
-import android.icu.text.Collator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andreesperanca.deolhonobus.mockdata.MockData
-import com.andreesperanca.deolhonobus.models.BusLine
-import com.andreesperanca.deolhonobus.models.BusLinePosition
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.Place
 import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
@@ -37,23 +33,9 @@ class BusDetailsViewModel(private val repository: BusDetailsRepository) : ViewMo
 
     fun getBusLinePositionWithBusLineCode(busLineCode: String) {
         _fetchBusLinePosition.postValue(Resource.Loading())
-        viewModelScope.launch (Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.Main) {
             val fetchResult = repository.getBusPositionWithBusLineCode(busLineCode)
             _fetchBusLinePosition.postValue(fetchResult)
         }
     }
-
-
-//    val listTest = MockData().listLines
-//    fun favoriteBusLine(busLine: BusLine) = viewModelScope.launch {
-//        listTest.map { it == busLine }.let {
-//            if (it.isEmpty()) {
-//                listTest.add(busLine)
-//                _isFavorite.value = true
-//            } else {
-//                listTest.remove(busLine)
-//                _isFavorite.value = false
-//            }
-//        }
-//    }
 }

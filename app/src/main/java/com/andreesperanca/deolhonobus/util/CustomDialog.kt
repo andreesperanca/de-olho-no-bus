@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.adapters.ForecastDialogAdapter
 import com.andreesperanca.deolhonobus.databinding.ButtomDialogItemBinding
 import com.andreesperanca.deolhonobus.models.ListOfVehiclesLocated
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CustomDialog(
-    private val listDialog: List<ListOfVehiclesLocated>
+    private val listDialog: List<ListOfVehiclesLocated>,
+    private val seeBusLineInMap: (latLng: LatLng) -> Unit
 ) : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -19,7 +21,7 @@ class CustomDialog(
         val binding = ButtomDialogItemBinding.inflate(layoutInflater)
         bottomDialog.setContentView(binding.root)
         val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
-        binding.rvBottomDialog.adapter = ForecastDialogAdapter(listDialog)
+        binding.rvBottomDialog.adapter = ForecastDialogAdapter(listDialog,seeBusLineInMap)
         binding.rvBottomDialog.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.rvBottomDialog.addItemDecoration(divisor)
         return bottomDialog

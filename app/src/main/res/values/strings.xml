@@ -25,7 +25,7 @@
     <string name="idCode">Código identificador: %1$s</string>
     <string name="busLine">Linhas que passam aqui</string>
     <string name="lineStops">Paradas da linha</string>
-    <string name="idBus">"Identificador único: %1$s"</string>
+    <string name="idBus">"Código da linha: %1$s"</string>
     <string name="infoAndDetails">Previsões e informações</string>
     <string name="arrivalForecast">Previsão de chegada: %1$s</string>
     <string name="accessibleForDisability">Suporte para PCDs: %1$s</string>

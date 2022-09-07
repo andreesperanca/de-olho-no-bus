@@ -1,6 +1,5 @@
 package com.andreesperanca.deolhonobus
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -10,10 +9,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.andreesperanca.deolhonobus.databinding.ActivityMapsBinding
 import com.andreesperanca.deolhonobus.models.MarkerInGmaps
+import com.andreesperanca.deolhonobus.util.BitMapHelper
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 

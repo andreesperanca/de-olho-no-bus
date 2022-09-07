@@ -1,4 +1,4 @@
-package com.andreesperanca.deolhonobus
+package com.andreesperanca.deolhonobus.util
 
 import android.annotation.SuppressLint
 import android.content.Context

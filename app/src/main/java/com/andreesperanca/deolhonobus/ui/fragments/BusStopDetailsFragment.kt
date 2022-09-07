@@ -2,11 +2,11 @@ package com.andreesperanca.deolhonobus.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
@@ -14,7 +14,8 @@ import com.andreesperanca.deolhonobus.MapsActivity
 import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.adapters.BusStopForecastAdapter
 import com.andreesperanca.deolhonobus.databinding.FragmentBusStopDetailsBinding
-import com.andreesperanca.deolhonobus.models.*
+import com.andreesperanca.deolhonobus.models.MarkerInGmaps
+import com.andreesperanca.deolhonobus.models.Place
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusStopDetailsViewModel
 import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.toList
@@ -24,7 +25,7 @@ import org.koin.android.ext.android.inject
 class BusStopDetailsFragment : Fragment() {
 
     private val binding by lazy { FragmentBusStopDetailsBinding.inflate(layoutInflater) }
-    private val adapter by lazy { BusStopForecastAdapter(childFragmentManager) }
+    private lateinit var adapter: BusStopForecastAdapter
     private val viewModel: BusStopDetailsViewModel by inject()
     private val args: BusStopDetailsFragmentArgs by navArgs()
 
@@ -32,6 +33,12 @@ class BusStopDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = binding.root
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        initAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -89,5 +96,17 @@ class BusStopDetailsFragment : Fragment() {
     private fun configureRecyclerView() {
         binding.rvBusStop.adapter = adapter
         binding.rvBusStop.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
+    }
+    private fun initAdapter() {
+        adapter = BusStopForecastAdapter(childFragmentManager, seeBusLineInMap =
+        {
+            val place = Place(title = "", it)
+            val intent = Intent(requireContext(), MapsActivity::class.java)
+            intent.putExtra("markersForTheMap",
+                MarkerInGmaps(title = args.busStop.name,
+                    listMarker = place.toList()
+                ))
+            startActivity(intent)
+        })
     }
 }
