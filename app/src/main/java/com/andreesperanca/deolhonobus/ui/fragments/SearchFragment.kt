@@ -17,6 +17,7 @@ import com.andreesperanca.deolhonobus.databinding.FragmentSearchBinding
 import com.andreesperanca.deolhonobus.ui.viewmodels.SearchViewModel
 import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.hideKeyboard
+import com.andreesperanca.deolhonobus.util.snackBarCreator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
@@ -34,6 +35,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //OBSERVABLES
         viewModel.fetchBusStopWithBusLineCode.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
@@ -45,7 +47,7 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
@@ -62,7 +64,7 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
@@ -79,7 +81,7 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
@@ -96,7 +98,7 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
@@ -108,17 +110,16 @@ class SearchFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), it.data, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.data.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
 
         }
-
     }
 
     override fun onStart() {
@@ -143,17 +144,13 @@ class SearchFragment : Fragment() {
                 viewModel.getBusLineWithDenominationOrNumber(binding.etSearchBar.text.toString())
             } else {
                 when (true) {
-                    binding.rbLineName.isChecked -> run {
-                        viewModel.getBusStopWithBusLineCode(
-                            binding.etSearchBar.text.toString()
-                        )
+                    binding.rbLineName.isChecked -> {
+                        viewModel.getBusStopWithBusLineCode(binding.etSearchBar.text.toString())
                     }
-                    binding.rbBusStop.isChecked -> run {
-                        viewModel.getBusStopWithAddressOrName(
-                            binding.etSearchBar.text.toString()
-                        )
+                    binding.rbBusStop.isChecked -> {
+                        viewModel.getBusStopWithAddressOrName(binding.etSearchBar.text.toString())
                     }
-                    else -> run { viewModel.getBusStopWithHallCode(binding.etSearchBar.text.toString()) }
+                    else -> { viewModel.getBusStopWithHallCode(binding.etSearchBar.text.toString()) }
                 }
             }
             hideKeyboard(binding.root)

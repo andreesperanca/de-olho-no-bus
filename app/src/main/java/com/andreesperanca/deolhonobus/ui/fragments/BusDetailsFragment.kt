@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,31 +14,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.MapsActivity
 import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.adapters.BusStopAdapter
-import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.databinding.FragmentBusDetailsBinding
 import com.andreesperanca.deolhonobus.models.MarkerInGmaps
-import com.andreesperanca.deolhonobus.models.Place
-import com.andreesperanca.deolhonobus.repositories.BusDetailsRepository
 import com.andreesperanca.deolhonobus.ui.viewmodels.BusDetailsViewModel
-import com.andreesperanca.deolhonobus.ui.viewmodels.BusDetailsViewModelFactory
 import com.andreesperanca.deolhonobus.util.Resource
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.material.snackbar.Snackbar
-import org.koin.android.ext.android.inject
+import com.andreesperanca.deolhonobus.util.snackBarCreator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BusDetailsFragment : Fragment() {
 
     private val args: BusDetailsFragmentArgs by navArgs()
-    private val adapter by lazy {
-        BusStopAdapter()
-    }
+    private val adapter by lazy { BusStopAdapter() }
     private val viewModel: BusDetailsViewModel by viewModel()
-
-    private val binding by lazy {
-        FragmentBusDetailsBinding.inflate(layoutInflater)
-    }
+    private val binding by lazy { FragmentBusDetailsBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,23 +45,27 @@ class BusDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     it.data?.let { result ->
                         if (result.isEmpty()) {
-                            Snackbar.make(binding.root, getString(R.string.noHaveData), Snackbar.LENGTH_LONG).show()
+                            snackBarCreator(binding.root, getString(R.string.noHaveData))
                         } else {
                             val intent = Intent(requireContext(), MapsActivity::class.java)
-                            intent.putExtra("extrasinput", MarkerInGmaps(
-                                title = args.bus.firstLabel,
-                                listMarker = result))
+                            intent.putExtra(
+                                "markersForTheMap", MarkerInGmaps(
+                                    title = args.bus.firstLabel,
+                                    listMarker = result
+                                )
+                            )
                             startActivity(intent)
                         }
                         binding.progressBar.visibility = View.INVISIBLE
                     }
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }
+
         viewModel.searchBusStop.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
@@ -83,14 +73,16 @@ class BusDetailsFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     adapter.updateList(it.data)
+                    adapterUIListener()
                     binding.progressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    snackBarCreator(binding.root, it.message.toString())
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }
+
         viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
             if (isFavorite == true) {
                 binding.btnFavorite.setImageDrawable(resources.getDrawable(R.drawable.ic_is_favorite))
@@ -102,16 +94,20 @@ class BusDetailsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        fetchBusStopWithBusLineCode()
+        fetchBusLineStopWithBusLineCode()
+        configureListeners()
         configureRecyclerView()
-        putBusInfo()
-        binding.btnFavorite.setOnClickListener {
-            viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
-        }
+        linksInformation()
     }
 
-    private fun fetchBusStopWithBusLineCode() {
+    private fun fetchBusLineStopWithBusLineCode() {
         viewModel.getBusStopWithBusLineCode(args.bus.idCode.toString())
+    }
+
+    private fun configureListeners() {
+        binding.btnLocalize.setOnClickListener {
+            viewModel.getBusLinePositionWithBusLineCode(args.bus.idCode.toString())
+        }
     }
 
     private fun configureRecyclerView() {
@@ -122,9 +118,10 @@ class BusDetailsFragment : Fragment() {
         binding.rvBusStop.addItemDecoration(divisor)
     }
 
-    private fun putBusInfo() {
+    private fun linksInformation() {
         binding.tvIdBus.text = getString(R.string.idBus, args.bus.idCode.toString())
         binding.tvNumberLine.text = getString(R.string.busNumber, args.bus.firstLabel)
+
         if (args.bus.CircularRoute) {
             binding.tvOperationType.text = getString(R.string.operationType, "Sim")
         } else {
@@ -145,6 +142,18 @@ class BusDetailsFragment : Fragment() {
                 binding.root.context.getString(R.string.origin, args.bus.secondaryTerminal)
             binding.tvDestination.text =
                 binding.root.context.getString(R.string.destination, args.bus.mainTerminal)
+        }
+    }
+
+    private fun adapterUIListener() {
+        if (adapter.itemCount == 0) {
+            binding.adapterIsEmpty.tvSearchControl.text = getString(R.string.nothingFound)
+            binding.adapterIsEmpty.ivSearchControl.setImageDrawable(
+                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_nothing_found)
+            )
+            binding.adapterIsEmpty.root.visibility = View.VISIBLE
+        } else {
+            binding.adapterIsEmpty.root.visibility = View.INVISIBLE
         }
     }
 }

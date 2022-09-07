@@ -30,7 +30,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         if (intent != null) {
-            args = intent.getParcelableExtra<MarkerInGmaps>("extrasinput")
+            args = intent.getParcelableExtra<MarkerInGmaps>("markersForTheMap")
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
