@@ -1,5 +1,7 @@
 package com.andreesperanca.deolhonobus.repositories
 
+import android.app.Application
+import com.andreesperanca.deolhonobus.R
 import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.models.BusLine
@@ -33,8 +35,9 @@ class BusDetailsRepository(
                 val resultFetch = service.getPositionBusLineWithBusLineCode(busLineCode).await()
                 val resultMap = mutableListOf<Place>()
                 resultFetch.locations.let { it.forEach {
-                    val hour = dateStringFormatter(it.hourLastLocation)
-                    val newPlace = Place(title = hour, lng = LatLng(it.py,it.px))
+                    val newPlace =
+                        Place(
+                            title = "Prefixo Veículo: ${it.prefixVehicle}", lng = LatLng(it.py,it.px))
                     resultMap.add(newPlace)
                 } }
                 Resource.Success(resultMap)
