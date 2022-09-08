@@ -107,15 +107,15 @@ class SearchFragment : Fragment() {
         viewModel.authResult.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.centerProgressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    snackBarCreator(binding.root, it.data.toString())
-                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.btnSearch.isEnabled = true
+                    binding.centerProgressBar.visibility = View.INVISIBLE
                 }
                 is Resource.Error -> {
                     snackBarCreator(binding.root, it.message.toString())
-                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.centerProgressBar.visibility = View.INVISIBLE
                 }
             }
 
@@ -124,8 +124,13 @@ class SearchFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        getAuthInApi()
         configureListeners()
         configureAdapter()
+    }
+
+    private fun getAuthInApi() {
+        viewModel.getAuthInApi()
     }
 
     private fun configureListeners() {
@@ -140,7 +145,6 @@ class SearchFragment : Fragment() {
         }
         binding.btnSearch.setOnClickListener {
             if (binding.lines.isChecked) {
-                viewModel.getAuthInApi()
                 viewModel.getBusLineWithDenominationOrNumber(binding.etSearchBar.text.toString())
             } else {
                 when (true) {

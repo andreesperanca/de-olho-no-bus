@@ -6,6 +6,7 @@
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.FavoriteFragment">
@@ -53,7 +54,7 @@
 
         <include
             android:id="@+id/adapterBusStopsFavorites"
-            layout="@layout/empty_list_favorite_bus_lines"
+            layout="@layout/empty_list_favorite_bus_stops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"

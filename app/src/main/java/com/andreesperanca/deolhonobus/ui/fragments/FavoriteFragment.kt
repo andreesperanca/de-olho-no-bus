@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andreesperanca.deolhonobus.adapters.BusLineFavoriteAdapter
 import com.andreesperanca.deolhonobus.adapters.BusStopFavoriteAdapter
-import com.andreesperanca.deolhonobus.databinding.FragmentHomeBinding
+import com.andreesperanca.deolhonobus.databinding.FragmentFavoriteBinding
 import com.andreesperanca.deolhonobus.ui.viewmodels.FavoriteViewModel
 import org.koin.android.ext.android.inject
 
@@ -30,7 +30,7 @@ class FavoriteFragment : Fragment() {
 
 
     private val binding by lazy {
-        FragmentHomeBinding.inflate(layoutInflater)
+        FragmentFavoriteBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(

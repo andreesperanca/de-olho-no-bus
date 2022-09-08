@@ -15,6 +15,15 @@
         android:background="@drawable/top_layout_background"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ProgressBar
+            android:id="@+id/centerProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/dark_blue"/>
+
         <TextView
             android:id="@+id/search_title"
             android:layout_width="wrap_content"
@@ -141,6 +150,7 @@
         <Button
             android:id="@+id/btn_search"
             style="@style/Theme.DeOlhoNoBus.Button"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_searchBar"
