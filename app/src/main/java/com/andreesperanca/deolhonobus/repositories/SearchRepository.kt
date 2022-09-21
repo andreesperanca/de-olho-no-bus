@@ -1,6 +1,5 @@
 package com.andreesperanca.deolhonobus.repositories
 
-import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
@@ -9,10 +8,10 @@ import com.andreesperanca.deolhonobus.util.apiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.await
+import javax.inject.Inject
 
-class SearchRepository(
-    private val service: RetrofitService,
-    private val favoriteDao: FavoriteDao
+class SearchRepository @Inject constructor(
+    private val service: RetrofitService
     ) {
 
     suspend fun getAuthInApi(): Resource<String>{
@@ -23,7 +22,6 @@ class SearchRepository(
             }
         }
     }
-
 
     suspend fun getBusLines(searchTerms: String): Resource<List<BusLine>> {
         return withContext(Dispatchers.IO) {
@@ -52,10 +50,10 @@ class SearchRepository(
         }
     }
 
-    suspend fun getBusStopWithBusLineCode(codigoLinha: String): Resource<List<BusStop>> {
+    suspend fun getBusStopWithBusLineCode(busLineCode: String): Resource<List<BusStop>> {
         return withContext(Dispatchers.IO) {
             apiCall {
-                val fetchResult = service.getBusStopWithBusLineCode(codigoLinha).await()
+                val fetchResult = service.getBusStopWithBusLineCode(busLineCode).await()
                 Resource.Success(fetchResult)
             }
         }

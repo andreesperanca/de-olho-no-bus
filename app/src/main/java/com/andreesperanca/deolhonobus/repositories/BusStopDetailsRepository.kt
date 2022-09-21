@@ -2,7 +2,6 @@ package com.andreesperanca.deolhonobus.repositories
 
 import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
-import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.ForecastVehicleView
 import com.andreesperanca.deolhonobus.util.Resource
@@ -10,8 +9,10 @@ import com.andreesperanca.deolhonobus.util.apiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.await
+import javax.inject.Inject
 
-class BusStopDetailsRepository(
+
+class BusStopDetailsRepository @Inject constructor(
     private val service: RetrofitService,
     private val favoriteDao: FavoriteDao) {
 
@@ -35,7 +36,6 @@ class BusStopDetailsRepository(
             }
         }
     }
-
 
     suspend fun favoriteBusStop(busStop: BusStop) {
         favoriteDao.favoriteBusStop(busStop)

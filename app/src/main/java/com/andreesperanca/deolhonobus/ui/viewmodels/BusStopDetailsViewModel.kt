@@ -9,10 +9,16 @@ import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.ForecastVehicleView
 import com.andreesperanca.deolhonobus.repositories.BusStopDetailsRepository
 import com.andreesperanca.deolhonobus.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BusStopDetailsViewModel(private val repository: BusStopDetailsRepository) : ViewModel() {
+
+@HiltViewModel
+class BusStopDetailsViewModel @Inject constructor (
+    private val repository: BusStopDetailsRepository
+    ) : ViewModel() {
 
     private val _getForecast = MutableLiveData<Resource<List<ForecastVehicleView>>>()
     val getForecast: LiveData<Resource<List<ForecastVehicleView>>> = _getForecast

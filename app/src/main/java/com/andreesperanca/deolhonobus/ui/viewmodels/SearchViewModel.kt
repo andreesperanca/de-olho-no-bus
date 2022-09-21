@@ -8,10 +8,15 @@ import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.repositories.SearchRepository
 import com.andreesperanca.deolhonobus.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val repository: SearchRepository
+    ) : ViewModel() {
 
     private val _fetchBusLineWithDenominationOrName = MutableLiveData<Resource<List<BusLine>>>()
     val fetchBusLineWithDenominationOrName: LiveData<Resource<List<BusLine>>> =

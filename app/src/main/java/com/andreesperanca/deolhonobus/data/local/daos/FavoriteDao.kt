@@ -23,9 +23,6 @@ interface FavoriteDao {
     fun favoriteBusLineVerify(idCode: Int) : BusLine?
 
 
-
-    //SEPARAÇÃO
-
     @Query("SELECT * FROM favoritesBusStop")
     fun getFavoritesBusStop() : Flow<List<BusStop>>
 
@@ -38,5 +35,4 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favoritesBusStop WHERE idCodeBusStop = :idCodeBusStop")
     fun favoriteBusStopVerify(idCodeBusStop: Int) : BusStop?
-
 }

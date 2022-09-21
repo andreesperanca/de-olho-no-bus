@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +13,12 @@ import com.andreesperanca.deolhonobus.adapters.BusLineFavoriteAdapter
 import com.andreesperanca.deolhonobus.adapters.BusStopFavoriteAdapter
 import com.andreesperanca.deolhonobus.databinding.FragmentFavoriteBinding
 import com.andreesperanca.deolhonobus.ui.viewmodels.FavoriteViewModel
-import org.koin.android.ext.android.inject
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
-    private val viewModel : FavoriteViewModel by inject()
+    private val viewModel : FavoriteViewModel by viewModels()
 
     private val busLineAdapter by lazy {
         BusLineFavoriteAdapter()

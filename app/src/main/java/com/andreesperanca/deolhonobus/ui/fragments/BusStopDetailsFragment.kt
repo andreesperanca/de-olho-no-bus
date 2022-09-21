@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
@@ -21,13 +22,15 @@ import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.dateStringFormatter
 import com.andreesperanca.deolhonobus.util.toList
 import com.google.android.gms.maps.model.LatLng
-import org.koin.android.ext.android.inject
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class BusStopDetailsFragment : Fragment() {
 
     private val binding by lazy { FragmentBusStopDetailsBinding.inflate(layoutInflater) }
     private lateinit var adapter: BusStopForecastAdapter
-    private val viewModel: BusStopDetailsViewModel by inject()
+    private val viewModel: BusStopDetailsViewModel by viewModels()
     private val args: BusStopDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
