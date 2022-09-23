@@ -5,6 +5,7 @@ import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.Place
+import com.andreesperanca.deolhonobus.repositories.SearchRepository.Authenticator.credential
 import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.apiCall
 import com.google.android.gms.maps.model.LatLng
@@ -22,7 +23,7 @@ class BusDetailsRepository @Inject constructor(
     suspend fun getBusStopWithBusLineCode(busLineCode: String): Resource<List<BusStop>> {
         return withContext(Dispatchers.IO) {
             apiCall {
-                val fetchResult = service.getBusStopWithBusLineCode(busLineCode).await()
+                val fetchResult = service.getBusStopWithBusLineCode(credential,busLineCode).await()
                 Resource.Success(fetchResult)
             }
         }
@@ -31,7 +32,7 @@ class BusDetailsRepository @Inject constructor(
     suspend fun getBusPositionWithBusLineCode(busLineCode: String): Resource<List<Place>> {
         return withContext(Dispatchers.IO) {
             apiCall {
-                val resultFetch = service.getPositionBusLineWithBusLineCode(busLineCode).await()
+                val resultFetch = service.getPositionBusLineWithBusLineCode(credential,busLineCode).await()
                 val resultMap = mutableListOf<Place>()
                 resultFetch.locations.let {
                     it.forEach {

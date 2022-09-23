@@ -31,7 +31,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:indeterminateTint="@color/dark_blue"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/search_title"
@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_searchBar"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:gravity="center"
                     android:text="@string/search" />
 

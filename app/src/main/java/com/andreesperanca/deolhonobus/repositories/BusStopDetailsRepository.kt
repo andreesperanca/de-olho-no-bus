@@ -4,6 +4,7 @@ import com.andreesperanca.deolhonobus.data.local.daos.FavoriteDao
 import com.andreesperanca.deolhonobus.data.remote.RetrofitService
 import com.andreesperanca.deolhonobus.models.BusStop
 import com.andreesperanca.deolhonobus.models.ForecastVehicleView
+import com.andreesperanca.deolhonobus.repositories.SearchRepository.Authenticator.credential
 import com.andreesperanca.deolhonobus.util.Resource
 import com.andreesperanca.deolhonobus.util.apiCall
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,7 @@ class BusStopDetailsRepository @Inject constructor(
     suspend fun getForecastWithBusStopCode (busStopCode: String) : Resource<List<ForecastVehicleView>> {
         return withContext(Dispatchers.IO) {
             apiCall {
-                val resultFetch = service.getForecastWithBusStopCode(busStopCode).await()
+                val resultFetch = service.getForecastWithBusStopCode(credential,busStopCode).await()
                 val resultMap = mutableListOf<ForecastVehicleView>()
                 resultFetch.busStop.listOfLinesFound.map {
                     val forecastView =

@@ -22,8 +22,8 @@ class SearchViewModel @Inject constructor(
     val fetchBusLineWithDenominationOrName: LiveData<Resource<List<BusLine>>> =
         _fetchBusLineWithDenominationOrName
 
-    private val _authResult = MutableLiveData<Resource<String>>()
-    val authResult: LiveData<Resource<String>> = _authResult
+    private val _authResult = MutableLiveData<Resource<Boolean>>()
+    val authResult: LiveData<Resource<Boolean>> = _authResult
 
     private val _fetchBusStopWithNameOrAddress = MutableLiveData<Resource<List<BusStop>>>()
     val fetchBusStopWithNameOrAddress: LiveData<Resource<List<BusStop>>> =
