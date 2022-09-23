@@ -7,13 +7,14 @@ Tabela de conteúdos
    * [Sobre](#sobre-book)
    * [Tecnologias](#tecnologias-rocket)
    * [Funções](#funções-hammer_and_wrench)
+   * [Como rodar o projeto](#como-rodar-o-projeto-game_die) 
    * [Autor](#autor) 
 <!--te-->
 
 ## Screenshots :camera: 
 <h1 align="center">
   <img style="border-radius: 50%;" src="./assets/buscarPorLinhas.png" width="250px;" alt=""/>
-  <img style="border-radius: 50%;" src="./assets/buscarPorParadas.png" width="250px;" alt=""/>
+  <img style="border-radius: 50%;" src="./assets/buscarParadas.png" width="250px;" alt=""/>
   <img style="border-radius: 50%;" src="./assets/detalhesLinhas.png" width="250px;" alt=""/>
   <img style="border-radius: 50%;" src="./assets/detalhesParadas.png" width="250px;" alt=""/>
   <img style="border-radius: 50%;" src="./assets/previsoes.png" width="250px;" alt=""/>
@@ -52,6 +53,19 @@ As seguintes ferramentas foram utilizadas no desenvolvimento do projeto:
 - [Google Maps](https://mapsplatform.google.com/)
 - [Retrofit](https://square.github.io/retrofit/)
 - [OkHttpClient](https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/)
+
+## Como rodar o projeto :game_die:
+Será necessário ter duas chaves de apis: <br />
+CHAVE DE API DO OLHO VIVO que pode ser obtida [AQUI.](https://www.sptrans.com.br/desenvolvedores/api-do-olho-vivo-guia-de-referencia/) <br />
+CHAVE DE API GOOGLE MAPS que pode ser obtida [AQUI.](https://mapsplatform.google.com/) <br />
+
+Para rodar o aplicativo será necessário abri-lo no Android Studio, mas antes colocar suas chaves de api. <br />
+
+Chave da API DO OLHO VIVO -> em com.andreesperanca.deolhonobus.util.ConstantsProject substitua da seguinte forma: <br />
+const val API_KEY = "SUA_API_KEY" <br />
+
+Chave do Google Maps -> em local.properties substitua da seguinte forma:  <br />
+MAPS_API_KEY = SUA_API_KEY <br />
 
 ## Autor
 Feito por André Esperança!
