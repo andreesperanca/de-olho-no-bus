@@ -99,7 +99,7 @@ class BusStopDetailsFragment : Fragment() {
     private fun inputInfoBusStop() {
         binding.tvBusStopName.text = getString(R.string.busStopName, args.busStop.name)
         binding.tvAddress.text = getString(R.string.address, args.busStop.address)
-        binding.tvIdCode.text = getString(R.string.idCode, args.busStop.id.toString())
+        binding.tvIdCode.text = getString(R.string.idCode, args.busStop.idCodeBusStop.toString())
     }
     private fun configureLocalizeButton() {
         val place = Place(title = args.busStop.name, LatLng(args.busStop.latitude,args.busStop.longitude))
