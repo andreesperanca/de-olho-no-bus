@@ -6,7 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.andreesperanca.deolhonobus.R
-import com.andreesperanca.deolhonobus.databinding.RvBusFavoriteItemBinding
+import com.andreesperanca.deolhonobus.databinding.RvBusLineFavoriteItemBinding
 import com.andreesperanca.deolhonobus.models.BusLine
 import com.andreesperanca.deolhonobus.ui.fragments.FavoriteFragmentDirections
 
@@ -15,7 +15,7 @@ class BusLineFavoriteAdapter() : Adapter<BusLineFavoriteAdapter.BusLineFavoriteV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusLineFavoriteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = RvBusFavoriteItemBinding.inflate(inflater, parent, false)
+        val binding = RvBusLineFavoriteItemBinding.inflate(inflater, parent, false)
         return BusLineFavoriteViewHolder(binding)
     }
 
@@ -34,7 +34,7 @@ class BusLineFavoriteAdapter() : Adapter<BusLineFavoriteAdapter.BusLineFavoriteV
         notifyItemChanged(busLineList.size)
     }
 
-    inner class BusLineFavoriteViewHolder(private val binding: RvBusFavoriteItemBinding) :
+    inner class BusLineFavoriteViewHolder(private val binding: RvBusLineFavoriteItemBinding) :
         ViewHolder
             (binding.root) {
 

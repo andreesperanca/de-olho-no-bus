@@ -58,19 +58,15 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun configureBusLineAdapter() {
-        val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.rvFavoritesBusLines.adapter = busLineAdapter
         binding.rvFavoritesBusLines.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.rvFavoritesBusLines.addItemDecoration(divisor)
     }
 
     private fun configureBusStopAdapter() {
-        val divisor = DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         binding.rvFavoritesBusStops.adapter = busStopAdapter
         binding.rvFavoritesBusStops.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        binding.rvFavoritesBusStops.addItemDecoration(divisor)
     }
 
     private fun uiBusLineFavoriteAdapter(adapter: BusLineFavoriteAdapter) {
