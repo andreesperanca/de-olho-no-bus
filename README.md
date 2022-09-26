@@ -29,7 +29,7 @@ O aplicativo é capaz de trazer ao usuário informações relevantes das linhas 
 - [x] Detalhes de linhas e todas as paradas da mesma.
 - [x] Mostrar no mapa as últimas localizações das linhas.
 - [x] Previsões de chegada das linhas em cada ponto de parada.
-- [x] Informa se as linhas tem suporte para PCDs.
+- [x] Informa se as linhas tem suporte para PcD.
 - [x] Opção de favoritar linhas.
 - [x] Buscar paradas por código de linha, nome/endereço ou código de corredor.
 - [x] Detalhes de paradas e todas as linhas que passam por ela.
