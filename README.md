@@ -39,7 +39,7 @@ O aplicativo é capaz de trazer ao usuário informações relevantes das linhas 
 ## Técnicas 🛠 
 - [x] Integração REST com Retrofit + OkHttpClient.
 - [x] Arquitetura MVVM.
-- [x] Jetpack Components (ViewModel, LiveData, LifeCycle, Room, Data Binding, Navigation)
+- [x] Jetpack Components (ViewModel, LiveData, LifeCycle, Room, View Binding, Navigation)
 - [x] Injeção de dependências com Hilt.
 - [x] Room para persistência de dados local;
 - [x] Navigation Component para sistema de navegação de telas;
