@@ -13,12 +13,12 @@ Tabela de conteúdos
 
 ## Screenshots :camera: 
 <h1 align="center">
-  <img style="border-radius: 50%;" src="./assets/buscarPorLinhas.png" width="250px;" alt=""/>
-  <img style="border-radius: 50%;" src="./assets/buscarParadas.png" width="250px;" alt=""/>
-  <img style="border-radius: 50%;" src="./assets/detalhesLinhas.png" width="250px;" alt=""/>
-  <img style="border-radius: 50%;" src="./assets/detalhesParadas.png" width="250px;" alt=""/>
-  <img style="border-radius: 50%;" src="./assets/previsoes.png" width="250px;" alt=""/>
-  <img style="border-radius: 50%;" src="./assets/favoritos.png" width="250px;" alt=""/>
+  <img style="border-radius: 0%;" src="./assets/buscarPorLinhas.png" width="250px;" alt=""/>
+  <img style="border-radius: 0%;" src="./assets/buscarParadas.png" width="250px;" alt=""/>
+  <img style="border-radius: 0%;" src="./assets/detalhesLinhas.png" width="250px;" alt=""/>
+  <img style="border-radius: 0%;" src="./assets/detalhesParadas.png" width="250px;" alt=""/>
+  <img style="border-radius: 0%;" src="./assets/previsoes.png" width="250px;" alt=""/>
+  <img style="border-radius: 0%;" src="./assets/favoritos.png" width="250px;" alt=""/>
   </h1>
 
 ## Sobre :book:
